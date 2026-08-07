@@ -15,7 +15,7 @@
 </head>
 <body>
 
-    <!-- لودینگ صفحه (Preloader) -->
+    <!-- لودینگ صفحه -->
     <div id="preloader">
         <div class="loader-content">
             <h1 class="loader-logo">A&B</h1>
@@ -48,7 +48,7 @@
         </div>
     </header>
 
-    <!-- منوی موبایل (Mobile Menu Overlay) -->
+    <!-- منوی موبایل -->
     <div id="mobile-menu" class="mobile-menu">
         <div class="mobile-menu-header">
             <h2>منو</h2>
@@ -62,7 +62,7 @@
         </nav>
     </div>
 
-    <!-- هیرو (بخش اصلی) -->
+    <!-- هیرو -->
     <section class="hero">
         <div class="hero-content">
             <h1 class="fade-in">AYDIN & BAHMAN</h1>
@@ -89,47 +89,47 @@
             <div class="product-grid">
                 <!-- محصول ۱ -->
                 <div class="product-card scroll-animate">
-                    <div class="img-box" onclick="openProductModal('dress1', 'شومیز مجلسی', '۱,۲۰۰,۰۰۰', 'images/dress1.jpg')">
-                        <img src="images/dress1.jpg" alt="محصول ۱">
+                    <div class="img-box" onclick="openProductModal('dress1', 'شومیز مجلسی', '۱,۲۰۰,۰۰۰', 'dress1.jpg')">
+                        <img src="dress1.jpg" alt="محصول ۱">
                         <div class="hover-view">مشاهده سریع</div>
                     </div>
                     <div class="product-info">
                         <h3>شومیز مجلسی</h3>
-                        <p class="price">۱,۲۰۰,۰۰۰ تومان</p>
+                        <p class="price">۱,۲۰۰,۰۰ تومان</p>
                     </div>
-                    <button class="add-btn" onclick="addToCartDirect('شومیز مجلسی', 1200000, 'images/dress1.jpg')">افزودن به سبد</button>
+                    <button class="add-btn" onclick="addToCartDirect('شومیز مجلسی', 1200000, 'dress1.jpg')">افزودن به سبد</button>
                 </div>
 
                 <!-- محصول ۲ -->
                 <div class="product-card scroll-animate">
-                    <div class="img-box" onclick="openProductModal('dress2', 'پیراهن تابستانه', '۵۰,۰۰۰', 'images/dress2.jpg')">
-                        <img src="images/dress2.jpg" alt="محصول ۲">
+                    <div class="img-box" onclick="openProductModal('dress2', 'پیراهن تابستانه', '۸۵۰,۰۰۰', 'dress2.jpg')">
+                        <img src="dress2.jpg" alt="محصول ۲">
                         <div class="hover-view">مشاهده سریع</div>
                     </div>
                     <div class="product-info">
                         <h3>پیراهن تابستانه</h3>
-                        <p class="price">۸۵۰,۰۰۰ تومان</p>
+                        <p class="price">۵۰,۰۰۰ تومان</p>
                     </div>
-                    <button class="add-btn" onclick="addToCartDirect('پیراهن تابستانه', 850000, 'images/dress2.jpg')">افزودن به سبد</button>
+                    <button class="add-btn" onclick="addToCartDirect('پیراهن تابستانه', 850000, 'dress2.jpg')">افزودن به سبد</button>
                 </div>
 
                 <!-- محصول ۳ -->
                 <div class="product-card scroll-animate">
-                    <div class="img-box" onclick="openProductModal('dress3', 'مانتو شیک', '۱,۵۰۰,۰۰۰', 'images/dress3.jpg')">
-                        <img src="images/dress3.jpg" alt="محصول ۳">
+                    <div class="img-box" onclick="openProductModal('dress3', 'مانتو شیک', '۱,۵۰۰,۰۰', 'dress3.jpg')">
+                        <img src="dress3.jpg" alt="محصول ۳">
                         <div class="hover-view">مشاهده سریع</div>
                     </div>
                     <div class="product-info">
                         <h3>مانتو شیک</h3>
                         <p class="price">۱,۵۰۰,۰۰۰ تومان</p>
                     </div>
-                    <button class="add-btn" onclick="addToCartDirect('مانتو شیک', 1500000, 'images/dress3.jpg')">افزودن به سبد</button>
+                    <button class="add-btn" onclick="addToCartDirect('مانتو شیک', 1500000, 'dress3.jpg')">افزودن به سبد</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- بخش اعتماد (Trust Badges) -->
+    <!-- بخش اعتماد -->
     <section class="trust-section">
         <div class="container trust-grid">
             <div class="trust-item">
@@ -150,7 +150,7 @@
         </div>
     </section>
 
-    <!-- بخش خبرنامه -->
+    <!-- خبرنامه -->
     <section class="newsletter">
         <div class="container">
             <h2>عضویت در خبرنامه</h2>
@@ -199,14 +199,14 @@
         <div class="cart-sidebar-footer">
             <div class="total-box">
                 <span>جمع کل:</span>
-                <span id="cart-total-price"> تومان</span>
+                <span id="cart-total-price">۰ تومان</span>
             </div>
             <button class="checkout-btn" onclick="checkoutAlert()">تایید و پرداخت</button>
         </div>
     </div>
     <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-    <!-- پنجره جزئیات محصول (Modal) -->
+    <!-- پنجره جزئیات محصول -->
     <div id="product-modal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeProductModal()">✕</span>
