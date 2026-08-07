@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AYDIN & BAHMAN | A&B</title>
+    
+    <!-- فونت‌ها -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- لودینگ صفحه (Preloader) -->
+    <div id="preloader">
+        <div class="loader-content">
+            <h1 class="loader-logo">A&B</h1>
+            <p>LOADING...</p>
+        </div>
+    </div>
+
+    <!-- نوار بالا -->
+    <div class="top-bar">
+        ارسال رایگان برای خریدهای بالای ۲ میلیون تومان
+    </div>
+
+    <!-- هدر -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="menu-toggle" onclick="toggleMobileMenu()">☰</div>
+            
+            <nav class="nav-right">
+                <a href="#products">کلکسیون</a>
+                <a href="#products">جدیدترین‌ها</a>
+                <a href="#contact">تماس با ما</a>
+            </nav>
+
+            <div class="logo">A&B <span>LUXURY</span></div>
+
+            <div class="nav-left">
+                <a href="#">جستجو</a>
+                <a href="#" class="cart" onclick="toggleCart()">سبد خرید (<span id="cart-count">0</span>)</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- منوی موبایل (Mobile Menu Overlay) -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h2>منو</h2>
+            <span class="close-mobile" onclick="toggleMobileMenu()"></span>
+        </div>
+        <nav class="mobile-nav">
+            <a href="#products" onclick="toggleMobileMenu()">کلکسیون</a>
+            <a href="#products" onclick="toggleMobileMenu()">جدیدترین‌ها</a>
+            <a href="#contact" onclick="toggleMobileMenu()">تماس با ما</a>
+            <a href="#" onclick="toggleMobileMenu()">حساب کاربری</a>
+        </nav>
+    </div>
+
+    <!-- هیرو (بخش اصلی) -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">AYDIN & BAHMAN</h1>
+            <p class="fade-in">LUXURY FASHION COLLECTION</p>
+            <a href="#products" class="btn-hero fade-in">مشاهده کالکشن</a>
+        </div>
+    </section>
+
+    <!-- دسته‌بندی‌ها -->
+    <section class="categories">
+        <div class="container">
+            <div class="cat-item">مانتو</div>
+            <div class="cat-item">پیراهن</div>
+            <div class="cat-item">شومیز</div>
+            <div class="cat-item">کت و شلوار</div>
+        </div>
+    </section>
+
+    <!-- محصولات -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">جدیدترین‌ها</h2>
+            
+            <div class="product-grid">
+                <!-- محصول ۱ -->
+                <div class="product-card scroll-animate">
+                    <div class="img-box" onclick="openProductModal('dress1', 'شومیز مجلسی', '۱,۲۰۰,۰۰۰', 'images/dress1.jpg')">
+                        <img src="images/dress1.jpg" alt="محصول ۱">
+                        <div class="hover-view">مشاهده سریع</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>شومیز مجلسی</h3>
+                        <p class="price">۱,۲۰۰,۰۰۰ تومان</p>
+                    </div>
+                    <button class="add-btn" onclick="addToCartDirect('شومیز مجلسی', 1200000, 'images/dress1.jpg')">افزودن به سبد</button>
+                </div>
+
+                <!-- محصول ۲ -->
+                <div class="product-card scroll-animate">
+                    <div class="img-box" onclick="openProductModal('dress2', 'پیراهن تابستانه', '۵۰,۰۰۰', 'images/dress2.jpg')">
+                        <img src="images/dress2.jpg" alt="محصول ۲">
+                        <div class="hover-view">مشاهده سریع</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>پیراهن تابستانه</h3>
+                        <p class="price">۸۵۰,۰۰۰ تومان</p>
+                    </div>
+                    <button class="add-btn" onclick="addToCartDirect('پیراهن تابستانه', 850000, 'images/dress2.jpg')">افزودن به سبد</button>
+                </div>
+
+                <!-- محصول ۳ -->
+                <div class="product-card scroll-animate">
+                    <div class="img-box" onclick="openProductModal('dress3', 'مانتو شیک', '۱,۵۰۰,۰۰۰', 'images/dress3.jpg')">
+                        <img src="images/dress3.jpg" alt="محصول ۳">
+                        <div class="hover-view">مشاهده سریع</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>مانتو شیک</h3>
+                        <p class="price">۱,۵۰۰,۰۰۰ تومان</p>
+                    </div>
+                    <button class="add-btn" onclick="addToCartDirect('مانتو شیک', 1500000, 'images/dress3.jpg')">افزودن به سبد</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش اعتماد (Trust Badges) -->
+    <section class="trust-section">
+        <div class="container trust-grid">
+            <div class="trust-item">
+                <div class="trust-icon">🚀</div>
+                <h4>ارسال سریع</h4>
+                <p>تحویل ۲ تا ۵ روز کاری</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon"></div>
+                <h4>پرداخت امن</h4>
+                <p>ضمانت بازگشت وجه</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon"></div>
+                <h4>کیفیت لوکس</h4>
+                <p>تضمین اصالت کالا</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش خبرنامه -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>عضویت در خبرنامه</h2>
+            <p>برای اطلاع از تخفیف‌های ویژه ایمیل خود را وارد کنید</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="ایمیل شما...">
+                <button type="submit">عضویت</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer id="contact">
+        <div class="container footer-content">
+            <div class="footer-col">
+                <h4>AYDIN & BAHMAN</h4>
+                <p>برند A&B</p>
+                <p>تهران، ایران</p>
+            </div>
+            <div class="footer-col">
+                <h4>راهنما</h4>
+                <a href="#">ارسال و تحویل</a>
+                <a href="#">بازگشت کالا</a>
+                <a href="#">تماس با ما</a>
+            </div>
+            <div class="footer-col">
+                <h4>دنبال کنید</h4>
+                <a href="https://instagram.com" target="_blank">اینستاگرام</a>
+                <a href="#">تلگرام</a>
+            </div>
+        </div>
+        <div class="copyright">
+            © ۱۴۰۳ AYDIN & BAHMAN — Luxury Fashion
+        </div>
+    </footer>
+
+    <!-- سبد خرید کشویی -->
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-sidebar-header">
+            <h3>سبد خرید شما</h3>
+            <span class="close-cart" onclick="toggleCart()">✕</span>
+        </div>
+        <div id="cart-items-container" class="cart-items-container">
+            <p class="empty-cart-msg">سبد خرید شما خالی است.</p>
+        </div>
+        <div class="cart-sidebar-footer">
+            <div class="total-box">
+                <span>جمع کل:</span>
+                <span id="cart-total-price"> تومان</span>
+            </div>
+            <button class="checkout-btn" onclick="checkoutAlert()">تایید و پرداخت</button>
+        </div>
+    </div>
+    <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- پنجره جزئیات محصول (Modal) -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeProductModal()">✕</span>
+            <div class="modal-body">
+                <div class="modal-img-container">
+                    <img id="modal-img" src="" alt="">
+                </div>
+                <div class="modal-details">
+                    <h2 id="modal-title">نام محصول</h2>
+                    <p id="modal-price" class="modal-price">۰ تومان</p>
+                    <p class="modal-desc">پارچه باکیفیت فوق‌العاده، دوخت تمیز و طراحی اختصاصی برند AYDIN & BAHMAN.</p>
+                    
+                    <div class="size-selector">
+                        <span>انتخاب سایز:</span>
+                        <div class="sizes">
+                            <span class="size-opt" onclick="selectSize(this)">S</span>
+                            <span class="size-opt active" onclick="selectSize(this)">M</span>
+                            <span class="size-opt" onclick="selectSize(this)">L</span>
+                            <span class="size-opt" onclick="selectSize(this)">XL</span>
+                        </div>
+                    </div>
+
+                    <button class="modal-add-btn" onclick="addToCartFromModal()">افزودن به سبد خرید</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
