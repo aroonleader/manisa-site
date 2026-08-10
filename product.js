@@ -1,20 +1,30 @@
 let currentProduct = null;
 let selectedSize = 'M';
 let quantity = 1;
+let cart = [];
 
 /* لود اطلاعات محصول از URL */
 window.addEventListener('DOMContentLoaded', function() {
+    console.log('صفحه لود شد...');
+    
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
+    
+    console.log('Product ID from URL:', productId);
 
     if (!productId) {
+        console.error('هیچ ID محصولی در URL یافت نشد!');
+        alert('محصول یافت نشد!');
         window.location.href = 'index.html';
         return;
     }
 
     currentProduct = getProductById(productId);
+    console.log('Product data:', currentProduct);
 
     if (!currentProduct) {
+        console.error('داده‌های محصول پیدا نشد!');
+        alert('محصول یافت نشد!');
         window.location.href = 'index.html';
         return;
     }
@@ -25,34 +35,62 @@ window.addEventListener('DOMContentLoaded', function() {
 
 /* لود جزئیات محصول */
 function loadProductDetail() {
-    document.getElementById('detail-image').src = currentProduct.image;
-    document.getElementById('detail-category').textContent = getCategoryName(currentProduct.category);
-    document.getElementById('detail-title').textContent = currentProduct.name;
-    document.getElementById('detail-price').textContent = currentProduct.priceFormatted + ' تومان';
-    document.getElementById('detail-desc').textContent = currentProduct.description;
-    document.getElementById('detail-fabric').textContent = currentProduct.fabric;
-    document.getElementById('detail-color').textContent = currentProduct.color;
-    document.getElementById('detail-style').textContent = currentProduct.style;
-    document.getElementById('breadcrumb-product').textContent = currentProduct.name;
+    console.log('Loading product detail...');
+    
+    // تنظیم عکس اصلی
+    const mainImage = document.getElementById('detail-image');
+    if (mainImage) {
+        mainImage.src = currentProduct.image;
+        mainImage.alt = currentProduct.name;
+        console.log('Image set to:', currentProduct.image);
+    } else {
+        console.error('عنصر detail-image یافت نشد!');
+    }
+    
+    // تنظیم سایر اطلاعات
+    setTextContent('detail-category', getCategoryName(currentProduct.category));
+    setTextContent('detail-title', currentProduct.name);
+    setTextContent('detail-price', currentProduct.priceFormatted + ' تومان');
+    setTextContent('detail-desc', currentProduct.description);
+    setTextContent('detail-fabric', currentProduct.fabric);
+    setTextContent('detail-color', currentProduct.color);
+    setTextContent('detail-style', currentProduct.style);
+    setTextContent('breadcrumb-product', currentProduct.name);
     
     // آپدیت تایتل صفحه
     document.title = currentProduct.name + ' | AYDIN & BAHMAN';
 }
 
+/* تابع کمکی برای تنظیم متن */
+function setTextContent(elementId, text) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.textContent = text;
+    } else {
+        console.error('عنصر یافت نشد:', elementId);
+    }
+}
+
 /* لود محصولات مشابه */
 function loadRelatedProducts() {
     const relatedGrid = document.getElementById('related-grid');
+    if (!relatedGrid) {
+        console.error('عنصر related-grid یافت نشد!');
+        return;
+    }
+    
     const relatedProducts = getRelatedProducts(currentProduct.category, currentProduct.id);
+    console.log('Related products:', relatedProducts);
 
     if (relatedProducts.length === 0) {
-        relatedGrid.innerHTML = '<p style="text-align: center; color: #888;">محصول مشابهی یافت نشد.</p>';
+        relatedGrid.innerHTML = '<p style="text-align: center; color: #888; padding: 50px;">محصول مشابهی یافت نشد.</p>';
         return;
     }
 
     relatedGrid.innerHTML = relatedProducts.map(product => `
         <article class="product-card visible">
             <div class="img-box" onclick="window.location.href='product.html?id=${product.id}'">
-                <img src="${product.image}" alt="${product.name}">
+                <img src="${product.image}" alt="${product.name}" onerror="this.src='dress1.jpg'">
                 <div class="hover-view">مشاهده سریع</div>
             </div>
             <div class="product-info">
@@ -63,17 +101,6 @@ function loadRelatedProducts() {
             <button class="add-btn" onclick="addToCartDirect('${product.name}', ${product.price}, '${product.image}')">افزودن به سبد</button>
         </article>
     `).join('');
-}
-
-/* دریافت نام دسته‌بندی */
-function getCategoryName(category) {
-    const names = {
-        manto: 'مانتو',
-        pirahan: 'پیراهن',
-        shomiz: 'شومیز',
-        set: 'کت و شلوار'
-    };
-    return names[category] || category;
 }
 
 /* انتخاب سایز */
@@ -88,8 +115,9 @@ function selectSize(element) {
 /* تغییر تعداد */
 function changeQuantity(delta) {
     const input = document.getElementById('quantity-input');
-    let newValue = parseInt(input.value) + delta;
+    if (!input) return;
     
+    let newValue = parseInt(input.value) + delta;
     if (newValue < 1) newValue = 1;
     if (newValue > 10) newValue = 10;
     
@@ -119,7 +147,6 @@ function addToCartFromDetail() {
 
     updateCartUI();
     toggleCart();
-    
     alert('محصول به سبد خرید اضافه شد! ✅');
 }
 
@@ -170,7 +197,7 @@ function toggleCart() {
     }
 }
 
-/* توابع سبد خرید از script.js اصلی */
+/* توابع سبد خرید */
 function updateCartUI() {
     const countElement = document.getElementById('cart-count');
     const itemsContainer = document.getElementById('cart-items-container');
@@ -194,7 +221,7 @@ function updateCartUI() {
         const row = document.createElement('div');
         row.className = 'cart-item-row';
         row.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
+            <img src="${item.image}" alt="${item.name}" onerror="this.src='dress1.jpg'">
             <div class="cart-item-details">
                 <h4>${item.name}</h4>
                 <div class="item-meta">سایز: ${item.size} | تعداد: ${item.quantity}</div>
