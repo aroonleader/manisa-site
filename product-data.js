@@ -5,7 +5,7 @@ const products = [
         name: 'مانتو کلاسیک مشکی',
         category: 'manto',
         price: 2450000,
-        priceFormatted: '۲,۴۰,۰۰۰',
+        priceFormatted: '۲,۴۵۰,۰۰۰',
         image: 'dress1.jpg',
         fabric: 'پارچه اعلا کرپ',
         color: 'مشکی',
@@ -17,7 +17,7 @@ const products = [
         name: 'پیراهن مجلسی بلند',
         category: 'pirahan',
         price: 3200000,
-        priceFormatted: ',۲۰۰,۰۰',
+        priceFormatted: '۳,۲۰۰,۰۰۰',
         image: 'dress2.jpg',
         fabric: 'ساتن ابریشم',
         color: 'سرمه‌ای',
@@ -29,7 +29,7 @@ const products = [
         name: 'شومیز حریر صورتی',
         category: 'shomiz',
         price: 1200000,
-        priceFormatted: '۱,۲۰,۰۰۰',
+        priceFormatted: '۱,۲۰۰,۰۰۰',
         image: 'dress3.jpg',
         fabric: 'حریر طبیعی',
         color: 'صورتی',
@@ -41,7 +41,7 @@ const products = [
         name: 'کت و شلوار رسمی',
         category: 'set',
         price: 4800000,
-        priceFormatted: ',۸۰۰,۰۰',
+        priceFormatted: '۴,۸۰۰,۰۰',
         image: 'dress4.jpg',
         fabric: 'پارچه فاستونی',
         color: 'طوسی',
@@ -53,7 +53,7 @@ const products = [
         name: 'مانتو بهاره کرم',
         category: 'manto',
         price: 1950000,
-        priceFormatted: '۱,۹۵۰,۰۰۰',
+        priceFormatted: '۱,۹۵,۰۰۰',
         image: 'dress5.jpg',
         fabric: 'لینن',
         color: 'کرم',
@@ -76,12 +76,32 @@ const products = [
 
 // پیدا کردن محصول بر اساس ID
 function getProductById(id) {
-    return products.find(product => product.id === id);
+    if (!products || products.length === 0) {
+        console.error('دیتابیس محصولات خالی است!');
+        return null;
+    }
+    const product = products.find(p => p.id === id);
+    if (!product) {
+        console.error('محصول با ID یافت نشد:', id);
+    }
+    return product;
 }
 
-// گرفتن محصولات مشابه (همان دسته‌بندی)
+// گرفتن محصولات مشابه
 function getRelatedProducts(category, currentId, limit = 4) {
+    if (!products) return [];
     return products
         .filter(product => product.category === category && product.id !== currentId)
         .slice(0, limit);
+}
+
+// دریافت نام دسته‌بندی
+function getCategoryName(category) {
+    const names = {
+        manto: 'مانتو',
+        pirahan: 'پیراهن',
+        shomiz: 'شومیز',
+        set: 'کت و شلوار'
+    };
+    return names[category] || category;
 }
