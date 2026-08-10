@@ -22,6 +22,7 @@
         </div>
     </div>
 
+    <!-- نوار بالا -->
     <div class="top-bar">
         ارسال رایگان برای خریدهای بالای ۲ میلیون تومان
     </div>
@@ -32,16 +33,14 @@
             <div class="menu-toggle" onclick="toggleMobileMenu()">☰</div>
             
             <nav class="nav-right">
-                <a href="#products" onclick="filterProducts('all', this)">همه</a>
-                <a href="#products" onclick="filterProducts('manto', this)">مانتو</a>
-                <a href="#products" onclick="filterProducts('pirahan', this)">پیراهن</a>
+                <a href="#products">محصولات</a>
+                <a href="#about">درباره ما</a>
                 <a href="#contact">تماس با ما</a>
             </nav>
 
             <div class="logo">A&B <span>LUXURY</span></div>
 
             <div class="nav-left">
-                <a href="#">جستجو</a>
                 <a href="#" class="cart" onclick="toggleCart()">سبد خرید (<span id="cart-count">0</span>)</a>
             </div>
         </div>
@@ -54,11 +53,8 @@
             <span class="close-mobile" onclick="toggleMobileMenu()">✕</span>
         </div>
         <nav class="mobile-nav">
-            <a href="#products" onclick="filterProducts('all', null); toggleMobileMenu()">همه محصولات</a>
-            <a href="#products" onclick="filterProducts('manto', null); toggleMobileMenu()">مانتو</a>
-            <a href="#products" onclick="filterProducts('pirahan', null); toggleMobileMenu()">پیراهن</a>
-            <a href="#products" onclick="filterProducts('shomiz', null); toggleMobileMenu()">شومیز</a>
-            <a href="#products" onclick="filterProducts('set', null); toggleMobileMenu()">کت و شلوار</a>
+            <a href="#products" onclick="toggleMobileMenu()">محصولات</a>
+            <a href="#about" onclick="toggleMobileMenu()">درباره ما</a>
             <a href="#contact" onclick="toggleMobileMenu()">تماس با ما</a>
         </nav>
     </div>
@@ -72,14 +68,14 @@
         </div>
     </section>
 
-    <!-- منوی فیلتر دسته‌بندی -->
-    <section class="categories">
-        <div class="container">
-            <div class="cat-item active" onclick="filterProducts('all', this)">همه محصولات</div>
-            <div class="cat-item" onclick="filterProducts('manto', this)">مانتو</div>
-            <div class="cat-item" onclick="filterProducts('pirahan', this)">پیراهن</div>
-            <div class="cat-item" onclick="filterProducts('shomiz', this)">شومیز</div>
-            <div class="cat-item" onclick="filterProducts('set', this)">کت و شلوار</div>
+    <!-- دسته‌بندی محصولات -->
+    <section class="categories" id="categories">
+        <div class="container category-menu">
+            <button class="cat-item active" data-category="all">همه محصولات</button>
+            <button class="cat-item" data-category="manto">مانتو</button>
+            <button class="cat-item" data-category="pirahan">پیراهن</button>
+            <button class="cat-item" data-category="shomiz">شومیز</button>
+            <button class="cat-item" data-category="set">کت و شلوار</button>
         </div>
     </section>
 
@@ -90,10 +86,10 @@
             
             <div class="product-grid" id="product-grid">
 
-                <!-- ۱ مانتو -->
-                <div class="product-card scroll-animate" data-category="manto">
-                    <div class="img-box" onclick="openProductModal('مانتو کلاسیک مشکی', '۲,۴۵۰,۰۰۰', 'dress1.jpg')">
-                        <img src="dress1.jpg" alt="مانتو کلاسیک">
+                <!-- مانتو  -->
+                <article class="product-card visible" data-category="manto">
+                    <div class="img-box" onclick="openProductModal('مانتو کلاسیک مشکی', 2450000, 'dress1.jpg')">
+                        <img src="dress1.jpg" alt="مانتو کلاسیک مشکی">
                         <div class="hover-view">مشاهده سریع</div>
                     </div>
                     <div class="product-info">
@@ -102,12 +98,12 @@
                         <p class="price">۲,۴۵۰,۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('مانتو کلاسیک مشکی', 2450000, 'dress1.jpg')">افزودن به سبد</button>
-                </div>
+                </article>
 
-                <!--  پیراهن -->
-                <div class="product-card scroll-animate" data-category="pirahan">
-                    <div class="img-box" onclick="openProductModal('پیراهن مجلسی بلند', '۳,۲۰,۰۰۰', 'dress2.jpg')">
-                        <img src="dress2.jpg" alt="پیراهن مجلسی">
+                <!-- پیراهن ۱ -->
+                <article class="product-card visible" data-category="pirahan">
+                    <div class="img-box" onclick="openProductModal('پیراهن مجلسی بلند', 3200000, 'dress2.jpg')">
+                        <img src="dress2.jpg" alt="پیراهن مجلسی بلند">
                         <div class="hover-view">مشاهده سریع</div>
                     </div>
                     <div class="product-info">
@@ -116,40 +112,40 @@
                         <p class="price">۳,۲۰۰,۰۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('پیراهن مجلسی بلند', 3200000, 'dress2.jpg')">افزودن به سبد</button>
-                </div>
+                </article>
 
-                <!-- ۳ شومیز -->
-                <div class="product-card scroll-animate" data-category="shomiz">
-                    <div class="img-box" onclick="openProductModal('شومیز حریر صورتی', '۱,۲۰,۰۰۰', 'dress3.jpg')">
-                        <img src="dress3.jpg" alt="شومیز حریر">
+                <!-- شومیز ۱ -->
+                <article class="product-card visible" data-category="shomiz">
+                    <div class="img-box" onclick="openProductModal('شومیز حریر صورتی', 1200000, 'dress3.jpg')">
+                        <img src="dress3.jpg" alt="شومیز حریر صورتی">
                         <div class="hover-view">مشاهده سریع</div>
                     </div>
                     <div class="product-info">
                         <span class="cat-tag">شومیز</span>
                         <h3>شومیز حریر صورتی</h3>
-                        <p class="price">۱,۲۰۰,۰۰۰ تومان</p>
+                        <p class="price">۱,۲۰,۰۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('شومیز حریر صورتی', 1200000, 'dress3.jpg')">افزودن به سبد</button>
-                </div>
+                </article>
 
-                <!-- ۴ کت و شلوار -->
-                <div class="product-card scroll-animate" data-category="set">
-                    <div class="img-box" onclick="openProductModal('کت و شلوار رسمی', '۴,۸۰۰,۰۰۰', 'dress4.jpg')">
-                        <img src="dress4.jpg" alt="کت و شلوار">
+                <!-- کت و شلوار ۱ -->
+                <article class="product-card visible" data-category="set">
+                    <div class="img-box" onclick="openProductModal('کت و شلوار رسمی', 4800000, 'dress4.jpg')">
+                        <img src="dress4.jpg" alt="کت و شلوار رسمی">
                         <div class="hover-view">مشاهده سریع</div>
                     </div>
                     <div class="product-info">
                         <span class="cat-tag">کت و شلوار</span>
                         <h3>کت و شلوار رسمی</h3>
-                        <p class="price">۴,۸۰۰,۰۰۰ تومان</p>
+                        <p class="price">۴,۸۰۰,۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('کت و شلوار رسمی', 4800000, 'dress4.jpg')">افزودن به سبد</button>
-                </div>
+                </article>
 
-                <!-- ۵ مانتو -->
-                <div class="product-card scroll-animate" data-category="manto">
-                    <div class="img-box" onclick="openProductModal('مانتو بهاره کرم', '۱,۹۵۰,۰۰۰', 'dress5.jpg')">
-                        <img src="dress5.jpg" alt="مانتو بهاره">
+                <!-- مانتو ۲ -->
+                <article class="product-card visible" data-category="manto">
+                    <div class="img-box" onclick="openProductModal('مانتو بهاره کرم', 1950000, 'dress5.jpg')">
+                        <img src="dress5.jpg" alt="مانتو بهاره کرم">
                         <div class="hover-view">مشاهده سریع</div>
                     </div>
                     <div class="product-info">
@@ -158,147 +154,95 @@
                         <p class="price">۱,۹۵۰,۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('مانتو بهاره کرم', 1950000, 'dress5.jpg')">افزودن به سبد</button>
-                </div>
+                </article>
 
-                <!-- ۶ پیراهن -->
-                <div class="product-card scroll-animate" data-category="pirahan">
-                    <div class="img-box" onclick="openProductModal('پیراهن روزمره', '۱,۶۰,۰۰', 'dress6.jpg')">
+                <!-- پیراهن ۲ -->
+                <article class="product-card visible" data-category="pirahan">
+                    <div class="img-box" onclick="openProductModal('پیراهن روزمره', 1650000, 'dress6.jpg')">
                         <img src="dress6.jpg" alt="پیراهن روزمره">
                         <div class="hover-view">مشاهده سریع</div>
                     </div>
                     <div class="product-info">
                         <span class="cat-tag">پیراهن</span>
                         <h3>پیراهن روزمره</h3>
-                        <p class="price">۱,۶۵۰,۰۰ تومان</p>
+                        <p class="price">۱,۶۵,۰۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('پیراهن روزمره', 1650000, 'dress6.jpg')">افزودن به سبد</button>
-                </div>
-
-                <!-- ۷ شومیز -->
-                <div class="product-card scroll-animate" data-category="shomiz">
-                    <div class="img-box" onclick="openProductModal('شومیز ساتن سفید', '۱,۴۵۰,۰۰۰', 'dress7.jpg')">
-                        <img src="dress7.jpg" alt="شومیز ساتن">
-                        <div class="hover-view">مشاهده سریع</div>
-                    </div>
-                    <div class="product-info">
-                        <span class="cat-tag">شومیز</span>
-                        <h3>شومیز ساتن سفید</h3>
-                        <p class="price">۱,۴۵۰,۰۰۰ تومان</p>
-                    </div>
-                    <button class="add-btn" onclick="addToCartDirect('شومیز ساتن سفید', 1450000, 'dress7.jpg')">افزودن به سبد</button>
-                </div>
-
-                <!-- ۸ کت و شلوار -->
-                <div class="product-card scroll-animate" data-category="set">
-                    <div class="img-box" onclick="openProductModal('ست اداری طوسی', '۵,۲۰,۰۰۰', 'dress8.jpg')">
-                        <img src="dress8.jpg" alt="ست اداری">
-                        <div class="hover-view">مشاهده سریع</div>
-                    </div>
-                    <div class="product-info">
-                        <span class="cat-tag">کت و شلوار</span>
-                        <h3>ست اداری طوسی</h3>
-                        <p class="price">۵,۲۰۰,۰۰۰ تومان</p>
-                    </div>
-                    <button class="add-btn" onclick="addToCartDirect('ست اداری طوسی', 5200000, 'dress8.jpg')">افزودن به سبد</button>
-                </div>
-
-                <!-- ۹ مانتو -->
-                <div class="product-card scroll-animate" data-category="manto">
-                    <div class="img-box" onclick="openProductModal('مانتو جلو باز', '۲,۱۰۰,۰۰۰', 'dress9.jpg')">
-                        <img src="dress9.jpg" alt="مانتو جلو باز">
-                        <div class="hover-view">مشاهده سریع</div>
-                    </div>
-                    <div class="product-info">
-                        <span class="cat-tag">مانتو</span>
-                        <h3>مانتو جلو باز</h3>
-                        <p class="price">,۱۰۰,۰۰ تومان</p>
-                    </div>
-                    <button class="add-btn" onclick="addToCartDirect('مانتو جلو باز', 2100000, 'dress9.jpg')">افزودن به سبد</button>
-                </div>
-
-                <!-- ۱۰ پیراهن -->
-                <div class="product-card scroll-animate" data-category="pirahan">
-                    <div class="img-box" onclick="openProductModal('پیراهن ماکسی', '۳,۸۵۰,۰۰', 'dress10.jpg')">
-                        <img src="dress10.jpg" alt="پیراهن ماکسی">
-                        <div class="hover-view">مشاهده سریع</div>
-                    </div>
-                    <div class="product-info">
-                        <span class="cat-tag">پیراهن</span>
-                        <h3>پیراهن ماکسی</h3>
-                        <p class="price">۳,۸۵۰,۰۰۰ تومان</p>
-                    </div>
-                    <button class="add-btn" onclick="addToCartDirect('پیراهن ماکسی', 3850000, 'dress10.jpg')">افزودن به سبد</button>
-                </div>
-
-                <!-- ۱۱ شومیز -->
-                <div class="product-card scroll-animate" data-category="shomiz">
-                    <div class="img-box" onclick="openProductModal('شومیز آستین پفی', '۱,۳۵۰,۰۰', 'dress11.jpg')">
-                        <img src="dress11.jpg" alt="شومیز پفی">
-                        <div class="hover-view">مشاهده سریع</div>
-                    </div>
-                    <div class="product-info">
-                        <span class="cat-tag">شومیز</span>
-                        <h3>شومیز آستین پفی</h3>
-                        <p class="price">۱,۳۵۰,۰۰ تومان</p>
-                    </div>
-                    <button class="add-btn" onclick="addToCartDirect('شومیز آستین پفی', 1350000, 'dress11.jpg')">افزودن به سبد</button>
-                </div>
-
-                <!-- ۱۲ کت و شلوار -->
-                <div class="product-card scroll-animate" data-category="set">
-                    <div class="img-box" onclick="openProductModal('ست مجلسی ویژه', '۶,۵۰۰,۰۰۰', 'dress12.jpg')">
-                        <img src="dress12.jpg" alt="ست مجلسی">
-                        <div class="hover-view">مشاهده سریع</div>
-                    </div>
-                    <div class="product-info">
-                        <span class="cat-tag">کت و شلوار</span>
-                        <h3>ست مجلسی ویژه</h3>
-                        <p class="price">۶,۵۰,۰۰۰ تومان</p>
-                    </div>
-                    <button class="add-btn" onclick="addToCartDirect('ست مجلسی ویژه', 6500000, 'dress12.jpg')">افزودن به سبد</button>
-                </div>
+                </article>
 
             </div>
 
-            <p id="no-result" class="no-result">محصولی در این دسته‌بندی یافت نشد.</p>
+            <p id="no-result" class="no-result">محصولی در این دسته‌بندی وجود ندارد.</p>
         </div>
     </section>
 
-    <!-- بخش اعتماد -->
-    <section class="trust-section">
-        <div class="container trust-grid">
-            <div class="trust-item">
-                <div class="trust-icon">🚀</div>
-                <h4>ارسال سریع</h4>
-                <p>تحویل ۲ تا ۵ روز کاری</p>
-            </div>
-            <div class="trust-item">
-                <div class="trust-icon">🔒</div>
-                <h4>پرداخت امن</h4>
-                <p>ضمانت بازگشت وجه</p>
-            </div>
-            <div class="trust-item">
-                <div class="trust-icon">💎</div>
-                <h4>کیفیت لوکس</h4>
-                <p>تضمین اصالت کالا</p>
-            </div>
+    <!-- درباره ما -->
+    <section class="about-section" id="about">
+        <div class="container about-content">
+            <span class="section-label">درباره A&B</span>
+            <h2>داستان ما</h2>
+            <p class="about-text">
+                سلام، من <strong>آیدین</strong> و دوستم <strong>بهنام</strong> هستیم.
+            </p>
+            <p class="about-text">
+                این سایت رو با عشق و تلاش زیاد ساختیم تا بتونیم بهترین لباس‌های زنانه رو با کیفیت عالی و قیمت مناسب به شما عرضه کنیم. هدف ما فقط فروش نیست، بلکه می‌خوایم استایل خاص و منحصر به فردی رو به شما هدیه بدیم.
+            </p>
+            <p class="about-text">
+                هر لباسی که می‌بینید با دقت انتخاب شده و ما متعهد هستیم که بهترین تجربه خرید رو براتون بسازیم. از حمایت شما سپاسگزاریم.
+            </p>
+            <p class="about-signature">— آیدین و بهنام</p>
         </div>
     </section>
 
-    <!-- خبرنامه -->
-    <section class="newsletter">
-        <div class="container">
-            <h2>عضویت در خبرنامه</h2>
-            <p>برای اطلاع از تخفیف‌های ویژه ایمیل خود را وارد کنید</p>
-            <form class="newsletter-form">
-                <input type="email" placeholder="ایمیل شما...">
-                <button type="submit">عضویت</button>
-            </form>
+    <!-- تماس با ما -->
+    <section class="contact-section" id="contact">
+        <div class="container contact-content">
+            <span class="section-label">تماس با ما</span>
+            <h2>راه‌های ارتباطی</h2>
+            
+            <div class="contact-grid">
+                <a href="https://wa.me/989385734170" target="_blank" class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <strong>واتساپ</strong>
+                    <span>۰۳۸۵۷۳۱۷۰</span>
+                    <span>پاسخگویی: ۹ صبح تا ۱۰ شب</span>
+                </a>
+
+                <a href="tel:+989385734170" class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <strong>تلفن تماس</strong>
+                    <span>۰۹۳۸۵۳۴۱۷۰</span>
+                    <span>تماس مستقیم</span>
+                </a>
+
+                <a href="https://instagram.com" target="_blank" class="contact-card">
+                    <div class="contact-icon">📸</div>
+                    <strong>اینستاگرام</strong>
+                    <span>@aydin_bahman</span>
+                    <span>صفحه رسمی برند</span>
+                </a>
+            </div>
+
+            <div class="contact-info">
+                <h3>سوالات متداول</h3>
+                <div class="faq-item">
+                    <strong>زمان ارسال چقدر است؟</strong>
+                    <p>۲ تا ۵ روز کاری پس از ثبت سفارش</p>
+                </div>
+                <div class="faq-item">
+                    <strong>آیا امکان تعویض وجود دارد؟</strong>
+                    <p>بله، تا ۷ روز پس از دریافت کالا با شرایط خاص</p>
+                </div>
+                <div class="faq-item">
+                    <strong>هزینه ارسال چقدر است؟</strong>
+                    <p>برای خریدهای بالای ۲ میلیون تومان رایگان است</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- فوتر -->
-    <footer id="contact">
+    <footer>
         <div class="container footer-content">
             <div class="footer-col">
                 <h4>AYDIN & BAHMAN</h4>
@@ -306,11 +250,10 @@
                 <p>تهران، ایران</p>
             </div>
             <div class="footer-col">
-                <h4>دسته‌بندی</h4>
-                <a href="#products" onclick="filterProducts('manto', null)">مانتو</a>
-                <a href="#products" onclick="filterProducts('pirahan', null)">پیراهن</a>
-                <a href="#products" onclick="filterProducts('shomiz', null)">شومیز</a>
-                <a href="#products" onclick="filterProducts('set', null)">کت و شلوار</a>
+                <h4>دسترسی سریع</h4>
+                <a href="#products">محصولات</a>
+                <a href="#about">درباره ما</a>
+                <a href="#contact">تماس با ما</a>
             </div>
             <div class="footer-col">
                 <h4>دنبال کنید</h4>
@@ -319,7 +262,7 @@
             </div>
         </div>
         <div class="copyright">
-            © ۱۰۳ AYDIN & BAHMAN — Luxury Fashion
+            © ۱۴۰۳ AYDIN & BAHMAN — طراحی و توسعه توسط آیدین و بهنام
         </div>
     </footer>
 
@@ -352,7 +295,7 @@
                 </div>
                 <div class="modal-details">
                     <h2 id="modal-title">نام محصول</h2>
-                    <p id="modal-price" class="modal-price"> تومان</p>
+                    <p id="modal-price" class="modal-price">۰ تومان</p>
                     <p class="modal-desc">پارچه باکیفیت فوق‌العاده، دوخت تمیز و طراحی اختصاصی برند AYDIN & BAHMAN.</p>
                     
                     <div class="size-selector">
