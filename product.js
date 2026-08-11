@@ -37,7 +37,6 @@ window.addEventListener('DOMContentLoaded', function() {
 function loadProductDetail() {
     console.log('Loading product detail...');
     
-    // تنظیم عکس اصلی
     const mainImage = document.getElementById('detail-image');
     if (mainImage) {
         mainImage.src = currentProduct.image;
@@ -47,7 +46,6 @@ function loadProductDetail() {
         console.error('عنصر detail-image یافت نشد!');
     }
     
-    // تنظیم سایر اطلاعات
     setTextContent('detail-category', getCategoryName(currentProduct.category));
     setTextContent('detail-title', currentProduct.name);
     setTextContent('detail-price', currentProduct.priceFormatted + ' تومان');
@@ -57,7 +55,6 @@ function loadProductDetail() {
     setTextContent('detail-style', currentProduct.style);
     setTextContent('breadcrumb-product', currentProduct.name);
     
-    // آپدیت تایتل صفحه
     document.title = currentProduct.name + ' | AYDIN & BAHMAN';
 }
 
@@ -227,7 +224,7 @@ function updateCartUI() {
                 <div class="item-meta">سایز: ${item.size} | تعداد: ${item.quantity}</div>
                 <div class="item-price">${(item.price * item.quantity).toLocaleString('fa-IR')} تومان</div>
             </div>
-            <button class="remove-item-btn" onclick="removeFromCart(${index})">✕</button>
+            <button class="remove-item-btn" onclick="removeFromCart(${index})"></button>
         `;
         itemsContainer.appendChild(row);
     });
