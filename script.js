@@ -13,18 +13,20 @@ function formatPrice(price) {
     return Number(price).toLocaleString('fa-IR') + ' تومان';
 }
 
-/* لودر */
+/* لودر - اصلاح شده */
 window.addEventListener('load', function () {
     const preloader = document.getElementById('preloader');
-
+    
     if (preloader) {
+        // حتماً بعد از ۲ ثانیه لودر حذف بشه
         setTimeout(function () {
             preloader.style.opacity = '0';
-
+            
             setTimeout(function () {
                 preloader.style.display = 'none';
+                console.log('لودر حذف شد');
             }, 500);
-        }, 900);
+        }, 2000);
     }
 });
 
@@ -311,3 +313,12 @@ window.addEventListener('click', function (event) {
         closeProductModal();
     }
 });
+
+/* دیباگ: اگر لودر حذف نشد، بعد از ۵ ثانیه به زور حذف بشه */
+setTimeout(function() {
+    const preloader = document.getElementById('preloader');
+    if (preloader && preloader.style.display !== 'none') {
+        console.warn('لودر به زور حذف شد - احتمالاً خطای جاوااسکریپت وجود دارد');
+        preloader.style.display = 'none';
+    }
+}, 5000);
