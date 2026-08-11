@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AYDIN & BAHMAN | A&B</title>
-    
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- لودینگ -->
     <div id="preloader">
         <div class="loader-content">
             <h1 class="loader-logo">A&B</h1>
@@ -22,35 +19,27 @@
         </div>
     </div>
 
-    <!-- نوار بالا -->
-    <div class="top-bar">
-        ارسال رایگان برای خریدهای بالای ۲ میلیون تومان
-    </div>
+    <div class="top-bar">ارسال رایگان برای خریدهای بالای  میلیون تومان</div>
 
-    <!-- هدر -->
     <header id="main-header">
         <div class="container header-container">
             <div class="menu-toggle" onclick="toggleMobileMenu()">☰</div>
-            
             <nav class="nav-right">
                 <a href="#products">محصولات</a>
                 <a href="#about">درباره ما</a>
                 <a href="#contact">تماس با ما</a>
             </nav>
-
             <div class="logo">A&B <span>LUXURY</span></div>
-
             <div class="nav-left">
                 <a href="#" class="cart" onclick="toggleCart()">سبد خرید (<span id="cart-count">0</span>)</a>
             </div>
         </div>
     </header>
 
-    <!-- منوی موبایل -->
     <div id="mobile-menu" class="mobile-menu">
         <div class="mobile-menu-header">
             <h2>منو</h2>
-            <span class="close-mobile" onclick="toggleMobileMenu()"></span>
+            <span class="close-mobile" onclick="toggleMobileMenu()">✕</span>
         </div>
         <nav class="mobile-nav">
             <a href="#products" onclick="toggleMobileMenu()">محصولات</a>
@@ -59,16 +48,14 @@
         </nav>
     </div>
 
-    <!-- هیرو -->
     <section class="hero">
         <div class="hero-content">
-            <h1 class="fade-in">AYDIN & BAHMAN</h1>
-            <p class="fade-in">LUXURY FASHION COLLECTION</p>
-            <a href="#products" class="btn-hero fade-in">مشاهده کالکشن</a>
+            <h1>AYDIN & BAHMAN</h1>
+            <p>LUXURY FASHION COLLECTION</p>
+            <a href="#products" class="btn-hero">مشاهده کالکشن</a>
         </div>
     </section>
 
-    <!-- دسته‌بندی محصولات -->
     <section class="categories" id="categories">
         <div class="container category-menu">
             <button class="cat-item active" data-category="all">همه محصولات</button>
@@ -79,14 +66,11 @@
         </div>
     </section>
 
-    <!-- محصولات -->
     <section id="products" class="products">
         <div class="container">
             <h2 class="section-title" id="products-title">همه محصولات</h2>
-            
             <div class="product-grid" id="product-grid">
 
-                <!-- مانتو  -->
                 <article class="product-card visible" data-category="manto">
                     <div class="img-box" onclick="window.location.href='product.html?id=dress1'">
                         <img src="dress1.jpg" alt="مانتو کلاسیک مشکی">
@@ -95,12 +79,11 @@
                     <div class="product-info">
                         <span class="cat-tag">مانتو</span>
                         <h3>مانتو کلاسیک مشکی</h3>
-                        <p class="price">۲,۴۵۰,۰۰۰ تومان</p>
+                        <p class="price">۲,۴۵۰,۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('مانتو کلاسیک مشکی', 2450000, 'dress1.jpg')">افزودن به سبد</button>
                 </article>
 
-                <!-- پیراهن ۱ -->
                 <article class="product-card visible" data-category="pirahan">
                     <div class="img-box" onclick="window.location.href='product.html?id=dress2'">
                         <img src="dress2.jpg" alt="پیراهن مجلسی بلند">
@@ -109,12 +92,11 @@
                     <div class="product-info">
                         <span class="cat-tag">پیراهن</span>
                         <h3>پیراهن مجلسی بلند</h3>
-                        <p class="price">۳,۰۰,۰۰۰ تومان</p>
+                        <p class="price">۳,۲۰۰,۰۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('پیراهن مجلسی بلند', 3200000, 'dress2.jpg')">افزودن به سبد</button>
                 </article>
 
-                <!-- شومیز ۱ -->
                 <article class="product-card visible" data-category="shomiz">
                     <div class="img-box" onclick="window.location.href='product.html?id=dress3'">
                         <img src="dress3.jpg" alt="شومیز حریر صورتی">
@@ -123,12 +105,11 @@
                     <div class="product-info">
                         <span class="cat-tag">شومیز</span>
                         <h3>شومیز حریر صورتی</h3>
-                        <p class="price">۱,۰۰,۰۰۰ تومان</p>
+                        <p class="price">۱,۲۰۰,۰۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('شومیز حریر صورتی', 1200000, 'dress3.jpg')">افزودن به سبد</button>
                 </article>
 
-                <!-- کت و شلوار  -->
                 <article class="product-card visible" data-category="set">
                     <div class="img-box" onclick="window.location.href='product.html?id=dress4'">
                         <img src="dress4.jpg" alt="کت و شلوار رسمی">
@@ -137,12 +118,11 @@
                     <div class="product-info">
                         <span class="cat-tag">کت و شلوار</span>
                         <h3>کت و شلوار رسمی</h3>
-                        <p class="price">۴,۸۰۰,۰۰۰ تومان</p>
+                        <p class="price">,۸۰۰,۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('کت و شلوار رسمی', 4800000, 'dress4.jpg')">افزودن به سبد</button>
                 </article>
 
-                <!-- مانتو  -->
                 <article class="product-card visible" data-category="manto">
                     <div class="img-box" onclick="window.location.href='product.html?id=dress5'">
                         <img src="dress5.jpg" alt="مانتو بهاره کرم">
@@ -156,7 +136,6 @@
                     <button class="add-btn" onclick="addToCartDirect('مانتو بهاره کرم', 1950000, 'dress5.jpg')">افزودن به سبد</button>
                 </article>
 
-                <!-- پیراهن ۲ -->
                 <article class="product-card visible" data-category="pirahan">
                     <div class="img-box" onclick="window.location.href='product.html?id=dress6'">
                         <img src="dress6.jpg" alt="پیراهن روزمره">
@@ -171,77 +150,45 @@
                 </article>
 
             </div>
-
             <p id="no-result" class="no-result">محصولی در این دسته‌بندی وجود ندارد.</p>
         </div>
     </section>
 
-    <!-- درباره ما -->
     <section class="about-section" id="about">
         <div class="container about-content">
             <span class="section-label">درباره A&B</span>
             <h2>داستان ما</h2>
-            <p class="about-text">
-                سلام، من <strong>آیدین</strong> و دوستم <strong>بهنام</strong> هستیم.
-            </p>
-            <p class="about-text">
-                این سایت رو با عشق و تلاش زیاد ساختیم تا بتونیم بهترین لباس‌های زنانه رو با کیفیت عالی و قیمت مناسب به شما عرضه کنیم. هدف ما فقط فروش نیست، بلکه می‌خوایم استایل خاص و منحصر به فردی رو به شما هدیه بدیم.
-            </p>
-            <p class="about-text">
-                هر لباسی که می‌بینید با دقت انتخاب شده و ما متعهد هستیم که بهترین تجربه خرید رو براتون بسازیم. از حمایت شما سپاسگزاریم.
-            </p>
+            <p class="about-text">سلام، من <strong>آیدین</strong> و دوستم <strong>بهنام</strong> هستیم.</p>
+            <p class="about-text">این سایت رو با عشق و تلاش زیاد ساختیم تا بتونیم بهترین لباس‌های زنانه رو با کیفیت عالی و قیمت مناسب به شما عرضه کنیم.</p>
+            <p class="about-text">هر لباسی که می‌بینید با دقت انتخاب شده و ما متعهد هستیم که بهترین تجربه خرید رو براتون بسازیم.</p>
             <p class="about-signature">— آیدین و بهنام</p>
         </div>
     </section>
 
-    <!-- تماس با ما -->
     <section class="contact-section" id="contact">
         <div class="container contact-content">
             <span class="section-label">تماس با ما</span>
             <h2>راه‌های ارتباطی</h2>
-            
             <div class="contact-grid">
                 <a href="https://wa.me/989385734170" target="_blank" class="contact-card">
                     <div class="contact-icon">💬</div>
                     <strong>واتساپ</strong>
-                    <span>۰۳۸۵۷۳۱۷۰</span>
-                    <span>پاسخگویی:  صبح تا ۱۰ شب</span>
+                    <span>۰۹۳۸۵۳۴۱۷۰</span>
                 </a>
-
                 <a href="tel:+989385734170" class="contact-card">
                     <div class="contact-icon">📞</div>
                     <strong>تلفن تماس</strong>
-                    <span>۰۹۳۸۵۷۳۴۱۷۰</span>
-                    <span>تماس مستقیم</span>
+                    <span>۰۹۳۵۷۳۴۱۰</span>
                 </a>
-
                 <a href="https://instagram.com" target="_blank" class="contact-card">
                     <div class="contact-icon">📸</div>
                     <strong>اینستاگرام</strong>
                     <span>@aydin_bahman</span>
-                    <span>صفحه رسمی برند</span>
                 </a>
-            </div>
-
-            <div class="contact-info">
-                <h3>سوالات متداول</h3>
-                <div class="faq-item">
-                    <strong>زمان ارسال چقدر است؟</strong>
-                    <p> تا ۵ روز کاری پس از ثبت سفارش</p>
-                </div>
-                <div class="faq-item">
-                    <strong>آیا امکان تعویض وجود دارد؟</strong>
-                    <p>بله، تا ۷ روز پس از دریافت کالا با شرایط خاص</p>
-                </div>
-                <div class="faq-item">
-                    <strong>هزینه ارسال چقدر است؟</strong>
-                    <p>برای خریدهای بالای ۲ میلیون تومان رایگان است</p>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- فوتر -->
     <footer>
         <div class="container footer-content">
             <div class="footer-col">
@@ -258,23 +205,17 @@
             <div class="footer-col">
                 <h4>دنبال کنید</h4>
                 <a href="https://instagram.com" target="_blank">اینستاگرام</a>
-                <a href="#">تلگرام</a>
             </div>
         </div>
-        <div class="copyright">
-            © ۱۴۰۳ AYDIN & BAHMAN — طراحی و توسعه توسط آیدین و بهنام
-        </div>
+        <div class="copyright">© ۴۰۳ AYDIN & BAHMAN</div>
     </footer>
 
-    <!-- سبد خرید -->
     <div id="cart-sidebar" class="cart-sidebar">
         <div class="cart-sidebar-header">
             <h3>سبد خرید شما</h3>
             <span class="close-cart" onclick="toggleCart()">✕</span>
         </div>
-        <div id="cart-items-container" class="cart-items-container">
-            <p class="empty-cart-msg">سبد خرید شما خالی است.</p>
-        </div>
+        <div id="cart-items-container" class="cart-items-container"></div>
         <div class="cart-sidebar-footer">
             <div class="total-box">
                 <span>جمع کل:</span>
@@ -285,7 +226,10 @@
     </div>
     <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-    <!-- دکمه شناور واتساپ -->
     <a href="https://wa.me/989385734170" target="_blank" class="whatsapp-float">
-        <svg viewBox="0 0 32 32" class="whatsapp-icon">
-            <path fill="currentColor" d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.082c2.404 1.311 5.134 2.082 8.067 2.082 8.837 0 16-7.163 
+        <svg viewBox="0 0 32 32" class="whatsapp-icon"><path fill="currentColor" d="M16 0C7.163 0 0 7.163 0 16c0 2.825.737 5.607 2.137 8.048L0 32l7.933-2.082C10.337 31.229 13.067 32 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0z"/></svg>
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
