@@ -1,4 +1,102 @@
-    <!-- ترتیب اسکریپت‌ها خیلی مهمه! -->
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جزئیات محصول | A&B</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="product-style.css">
+</head>
+<body>
+    <div id="preloader"><div class="loader-content"><h1 class="loader-logo">A&B</h1><p>LOADING...</p></div></div>
+    <div class="top-bar">ارسال رایگان برای خریدهای بالای ۲ میلیون تومان</div>
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="menu-toggle" onclick="toggleMobileMenu()">☰</div>
+            <nav class="nav-right"><a href="index.html">خانه</a><a href="index.html#products">محصولات</a></nav>
+            <div class="logo">A&B <span>LUXURY</span></div>
+            <div class="nav-left"><a href="#" class="cart" onclick="toggleCart()">سبد (<span id="cart-count">0</span>)</a></div>
+        </div>
+    </header>
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="mobile-menu-header"><h2>منو</h2><span class="close-mobile" onclick="toggleMobileMenu()">✕</span></div>
+        <nav class="mobile-nav">
+            <a href="index.html" onclick="toggleMobileMenu()">خانه</a>
+            <a href="index.html#products" onclick="toggleMobileMenu()">محصولات</a>
+        </nav>
+    </div>
+
+    <section class="product-detail-section">
+        <div class="container product-detail-container">
+            <div class="breadcrumb"><a href="index.html">خانه</a><span>/</span><a href="index.html#products">محصولات</a><span>/</span><span id="breadcrumb-product">محصول</span></div>
+            <div class="product-detail-grid">
+                <div class="product-gallery">
+                    <div class="main-image"><img id="detail-image" src="" alt=""><div class="image-badge">جدید</div></div>
+                </div>
+                <div class="product-info-detail">
+                    <span class="product-category" id="detail-category">دسته‌بندی</span>
+                    <h1 id="detail-title" class="product-title">نام محصول</h1>
+                    <div class="product-rating"><span class="stars">★★★★★</span><span class="rating-count">(۵ نظر)</span></div>
+                    <p id="detail-price" class="product-price">۰ تومان</p>
+                    <div class="product-description"><h3>توضیحات محصول</h3><p id="detail-desc">توضیحات</p></div>
+                    <div class="product-specs">
+                        <div class="spec-item"><span class="spec-label">جنس:</span><span class="spec-value" id="detail-fabric">-</span></div>
+                        <div class="spec-item"><span class="spec-label">رنگ:</span><span class="spec-value" id="detail-color">-</span></div>
+                        <div class="spec-item"><span class="spec-label">سبک:</span><span class="spec-value" id="detail-style">-</span></div>
+                    </div>
+                    <div class="size-selector-detail">
+                        <span class="size-label">سایز:</span>
+                        <div class="sizes">
+                            <button class="size-opt" onclick="selectSize(this)">S</button>
+                            <button class="size-opt active" onclick="selectSize(this)">M</button>
+                            <button class="size-opt" onclick="selectSize(this)">L</button>
+                            <button class="size-opt" onclick="selectSize(this)">XL</button>
+                        </div>
+                    </div>
+                    <div class="quantity-selector">
+                        <span class="quantity-label">تعداد:</span>
+                        <div class="quantity-controls">
+                            <button onclick="changeQuantity(-1)">-</button>
+                            <input type="number" id="quantity-input" value="1" min="1" max="10">
+                            <button onclick="changeQuantity(1)">+</button>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="add-to-cart-btn" onclick="addToCartFromDetail()">🛒 افزودن به سبد</button>
+                        <button class="buy-now-btn" onclick="buyNowFromDetail()">خرید سریع</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-products">
+        <div class="container"><h2 class="section-title">محصولات مشابه</h2><div class="product-grid" id="related-grid"></div></div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col"><h4>AYDIN & BAHMAN</h4><p>برند A&B</p></div>
+            <div class="footer-col"><h4>دسترسی</h4><a href="index.html">خانه</a><a href="index.html#products">محصولات</a></div>
+            <div class="footer-col"><h4>دنبال کنید</h4><a href="https://instagram.com">اینستاگرام</a></div>
+        </div>
+        <div class="copyright">© ۱۴۰۳ A&B</div>
+    </footer>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-sidebar-header"><h3>سبد خرید</h3><span class="close-cart" onclick="toggleCart()">✕</span></div>
+        <div id="cart-items-container" class="cart-items-container"></div>
+        <div class="cart-sidebar-footer">
+            <div class="total-box"><span>جمع:</span><span id="cart-total-price">۰ تومان</span></div>
+            <button class="checkout-btn" onclick="checkoutToWhatsApp()">ارسال سفارش</button>
+        </div>
+    </div>
+    <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
+
     <script src="product-data.js"></script>
     <script src="script.js"></script>
     <script src="product.js"></script>
