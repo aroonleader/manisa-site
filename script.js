@@ -1,263 +1,91 @@
 let cart = [];
-let activeProductInModal = null;
 
-const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
-
-function toEnglishNumber(value) {
-    return String(value).replace(/[۰-۹]/g, digit => {
-        return persianDigits.indexOf(digit);
-    });
-}
-
-function formatPrice(price) {
-    return Number(price).toLocaleString('fa-IR') + ' تومان';
-}
-
-/* لودر - اصلاح شده */
-window.addEventListener('load', function () {
+window.addEventListener('load', function() {
     const preloader = document.getElementById('preloader');
-    
     if (preloader) {
-        // حتماً بعد از ۲ ثانیه لودر حذف بشه
-        setTimeout(function () {
+        setTimeout(function() {
             preloader.style.opacity = '0';
-            
-            setTimeout(function () {
+            setTimeout(function() {
                 preloader.style.display = 'none';
-                console.log('لودر حذف شد');
             }, 500);
-        }, 2000);
+        }, 1500);
     }
 });
 
-/* فیلتر دسته‌بندی محصولات */
 function filterProducts(category, clickedButton) {
     const cards = document.querySelectorAll('.product-card');
     const title = document.getElementById('products-title');
     const noResult = document.getElementById('no-result');
 
-    const categoryNames = {
-        all: 'همه محصولات',
-        manto: 'مانتو',
-        pirahan: 'پیراهن',
-        shomiz: 'شومیز',
-        set: 'کت و شلوار'
-    };
+    const names = { all: 'همه محصولات', manto: 'مانتو', pirahan: 'پیراهن', shomiz: 'شومیز', set: 'کت و شلوار' };
+    if (title) title.textContent = names[category];
 
-    if (title) {
-        title.textContent = categoryNames[category];
-    }
+    document.querySelectorAll('.cat-item').forEach(btn => btn.classList.remove('active'));
+    if (clickedButton) clickedButton.classList.add('active');
 
-    document.querySelectorAll('.cat-item').forEach(function (button) {
-        button.classList.remove('active');
-    });
-
-    if (clickedButton) {
-        clickedButton.classList.add('active');
-    }
-
-    let visibleCount = 0;
-
-    cards.forEach(function (card) {
-        const cardCategory = card.dataset.category;
-
-        if (category === 'all' || cardCategory === category) {
+    let count = 0;
+    cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
             card.classList.remove('hide');
             card.classList.add('visible');
-            visibleCount++;
+            count++;
         } else {
             card.classList.add('hide');
         }
     });
 
-    if (noResult) {
-        noResult.style.display = visibleCount === 0 ? 'block' : 'none';
-    }
-
-    const productsSection = document.getElementById('products');
-
-    if (productsSection) {
-        productsSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-    }
+    if (noResult) noResult.style.display = count === 0 ? 'block' : 'none';
+    document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
 }
 
-/* اتصال کلیک به دکمه‌های دسته‌بندی */
-document.querySelectorAll('.cat-item').forEach(function (button) {
-    button.addEventListener('click', function () {
+document.querySelectorAll('.cat-item').forEach(btn => {
+    btn.addEventListener('click', function() {
         filterProducts(this.dataset.category, this);
     });
 });
 
-/* سبد خرید */
 function toggleCart() {
-    const sidebar = document.getElementById('cart-sidebar');
-    const overlay = document.getElementById('cart-overlay');
-
-    if (!sidebar || !overlay) return;
-
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('open');
+    document.getElementById('cart-sidebar')?.classList.toggle('open');
+    document.getElementById('cart-overlay')?.classList.toggle('open');
 }
 
 function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    if (menu) {
-        menu.classList.toggle('active');
-    }
+    document.getElementById('mobile-menu')?.classList.toggle('active');
 }
 
 function addToCartDirect(name, price, image) {
-    const existingItem = cart.find(function (item) {
-        return item.name === name && item.size === 'M';
-    });
-
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cart.push({
-            name: name,
-            price: Number(price),
-            image: image,
-            size: 'M',
-            quantity: 1
-        });
-    }
-
+    const existing = cart.find(i => i.name === name && i.size === 'M');
+    if (existing) existing.quantity++;
+    else cart.push({ name, price, image, size: 'M', quantity: 1 });
     updateCartUI();
-
     const sidebar = document.getElementById('cart-sidebar');
-
-    if (sidebar && !sidebar.classList.contains('open')) {
-        toggleCart();
-    }
+    if (sidebar && !sidebar.classList.contains('open')) toggleCart();
 }
 
-/* مودال محصول */
-function openProductModal(name, price, image) {
-    const modal = document.getElementById('product-modal');
-
-    if (!modal) return;
-
-    modal.style.display = 'flex';
-
-    document.getElementById('modal-title').textContent = name;
-    document.getElementById('modal-price').textContent = formatPrice(price);
-    document.getElementById('modal-img').src = image;
-
-    activeProductInModal = {
-        name: name,
-        price: Number(price),
-        image: image,
-        size: 'M'
-    };
-
-    document.querySelectorAll('.size-opt').forEach(function (size) {
-        size.classList.toggle('active', size.textContent.trim() === 'M');
-    });
-}
-
-function closeProductModal() {
-    const modal = document.getElementById('product-modal');
-
-    if (modal) {
-        modal.style.display = 'none';
-    }
-}
-
-function selectSize(element) {
-    document.querySelectorAll('.size-opt').forEach(function (size) {
-        size.classList.remove('active');
-    });
-
-    element.classList.add('active');
-
-    if (activeProductInModal) {
-        activeProductInModal.size = element.textContent.trim();
-    }
-}
-
-function addToCartFromModal() {
-    if (!activeProductInModal) return;
-
-    const product = activeProductInModal;
-
-    const existingItem = cart.find(function (item) {
-        return item.name === product.name &&
-               item.size === product.size;
-    });
-
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cart.push({
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            size: product.size,
-            quantity: 1
-        });
-    }
-
-    closeProductModal();
-    updateCartUI();
-    toggleCart();
-}
-
-/* نمایش سبد خرید */
 function updateCartUI() {
-    const countElement = document.getElementById('cart-count');
-    const itemsContainer = document.getElementById('cart-items-container');
-    const totalElement = document.getElementById('cart-total-price');
+    const countEl = document.getElementById('cart-count');
+    const container = document.getElementById('cart-items-container');
+    const totalEl = document.getElementById('cart-total-price');
+    if (!countEl || !container || !totalEl) return;
 
-    if (!countElement || !itemsContainer || !totalElement) return;
-
-    const count = cart.reduce(function (sum, item) {
-        return sum + item.quantity;
-    }, 0);
-
-    countElement.textContent = count;
-    itemsContainer.innerHTML = '';
+    countEl.textContent = cart.reduce((s, i) => s + i.quantity, 0);
+    container.innerHTML = '';
 
     if (cart.length === 0) {
-        itemsContainer.innerHTML =
-            '<p class="empty-cart-msg">سبد خرید شما خالی است.</p>';
-
-        totalElement.textContent = '۰ تومان';
+        container.innerHTML = '<p class="empty-cart-msg">سبد خرید شما خالی است.</p>';
+        totalEl.textContent = '۰ تومان';
         return;
     }
 
     let total = 0;
-
-    cart.forEach(function (item, index) {
+    cart.forEach((item, index) => {
         total += item.price * item.quantity;
-
-        const itemElement = document.createElement('div');
-        itemElement.className = 'cart-item-row';
-
-        itemElement.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
-            <div class="cart-item-details">
-                <h4>${item.name}</h4>
-                <div class="item-meta">
-                    سایز: ${item.size} | تعداد: ${item.quantity}
-                </div>
-                <div class="item-price">
-                    ${formatPrice(item.price * item.quantity)}
-                </div>
-            </div>
-            <button class="remove-item-btn"
-                    onclick="removeFromCart(${index})">
-                ✕
-            </button>
-        `;
-
-        itemsContainer.appendChild(itemElement);
+        const row = document.createElement('div');
+        row.className = 'cart-item-row';
+        row.innerHTML = `<img src="${item.image}" alt="${item.name}"><div class="cart-item-details"><h4>${item.name}</h4><div class="item-meta">سایز: ${item.size} | تعداد: ${item.quantity}</div><div class="item-price">${(item.price * item.quantity).toLocaleString('fa-IR')} تومان</div></div><button class="remove-item-btn" onclick="removeFromCart(${index})">✕</button>`;
+        container.appendChild(row);
     });
-
-    totalElement.textContent = formatPrice(total);
+    totalEl.textContent = total.toLocaleString('fa-IR') + ' تومان';
 }
 
 function removeFromCart(index) {
@@ -265,60 +93,25 @@ function removeFromCart(index) {
     updateCartUI();
 }
 
-/* ارسال سفارش به واتساپ */
 function checkoutToWhatsApp() {
-    if (cart.length === 0) {
-        alert('سبد خرید شما خالی است.');
-        return;
-    }
-
-    let message = '️ سفارش جدید از سایت A&B\n\n';
+    if (cart.length === 0) { alert('سبد خرید خالی است.'); return; }
+    let msg = '🛍️ سفارش جدید از سایت A&B\n\n';
     let total = 0;
-
-    cart.forEach(function (item, index) {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-
-        message += `${index + 1}. ${item.name}\n`;
-        message += `سایز: ${item.size}\n`;
-        message += `تعداد: ${item.quantity}\n`;
-        message += `قیمت: ${formatPrice(itemTotal)}\n\n`;
+    cart.forEach((item, i) => {
+        const t = item.price * item.quantity;
+        total += t;
+        msg += `${i+1}. ${item.name}\nسایز: ${item.size} | تعداد: ${item.quantity}\nقیمت: ${t.toLocaleString('fa-IR')} تومان\n\n`;
     });
-
-    message += `━━━━━━━━━━━━━━━━\n`;
-    message += `💰 جمع کل: ${formatPrice(total)}\n\n`;
-    message += 'لطفاً برای تکمیل سفارش راهنمایی کنید. 🙏';
-
-    const whatsappLink =
-        'https://web.whatsapp.com/send?phone=989385734170&text=' +
-        encodeURIComponent(message);
-
-    window.location.href = whatsappLink;
+    msg += `━━━━━━━━━━━━━━━━\n💰 جمع کل: ${total.toLocaleString('fa-IR')} تومان\n\nلطفاً راهنمایی کنید. `;
+    window.location.href = 'https://web.whatsapp.com/send?phone=989385734170&text=' + encodeURIComponent(msg);
 }
 
-/* هدر هنگام اسکرول */
 const header = document.getElementById('main-header');
-
-window.addEventListener('scroll', function () {
-    if (!header) return;
-
-    header.classList.toggle('scrolled', window.scrollY > 50);
+window.addEventListener('scroll', () => {
+    if (header) header.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-/* بستن مودال با کلیک بیرون */
-window.addEventListener('click', function (event) {
+window.addEventListener('click', (e) => {
     const modal = document.getElementById('product-modal');
-
-    if (modal && event.target === modal) {
-        closeProductModal();
-    }
+    if (modal && e.target === modal) modal.style.display = 'none';
 });
-
-/* دیباگ: اگر لودر حذف نشد، بعد از ۵ ثانیه به زور حذف بشه */
-setTimeout(function() {
-    const preloader = document.getElementById('preloader');
-    if (preloader && preloader.style.display !== 'none') {
-        console.warn('لودر به زور حذف شد - احتمالاً خطای جاوااسکریپت وجود دارد');
-        preloader.style.display = 'none';
-    }
-}, 5000);
