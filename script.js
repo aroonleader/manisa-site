@@ -1,4 +1,6 @@
+// متغیرهای سراسری - برای استفاده در همه صفحات
 let cart = [];
+let currentProduct = null;
 
 window.addEventListener('load', function() {
     const preloader = document.getElementById('preloader');
