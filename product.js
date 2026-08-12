@@ -1,7 +1,6 @@
-let currentProduct = null;
+// متغیرها از script.js میان، اینجا فقط استفاده می‌کنیم
 let selectedSize = 'M';
 let quantity = 1;
-let cart = [];
 
 window.addEventListener('DOMContentLoaded', function() {
     console.log('=== صفحه محصول لود شد ===');
@@ -154,6 +153,7 @@ function buyNowFromDetail() {
     }, 500);
 }
 
+// لودر فقط برای صفحه محصول
 window.addEventListener('load', function() {
     const preloader = document.getElementById('preloader');
     if (preloader) {
@@ -165,105 +165,3 @@ window.addEventListener('load', function() {
         }, 2000);
     }
 });
-
-const header = document.getElementById('main-header');
-window.addEventListener('scroll', function() {
-    if (header) {
-        header.classList.toggle('scrolled', window.scrollY > 50);
-    }
-});
-
-function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    if (menu) {
-        menu.classList.toggle('active');
-    }
-}
-
-function toggleCart() {
-    const sidebar = document.getElementById('cart-sidebar');
-    const overlay = document.getElementById('cart-overlay');
-    if (sidebar && overlay) {
-        sidebar.classList.toggle('open');
-        overlay.classList.toggle('open');
-    }
-}
-
-function updateCartUI() {
-    const countElement = document.getElementById('cart-count');
-    const itemsContainer = document.getElementById('cart-items-container');
-    const totalElement = document.getElementById('cart-total-price');
-
-    if (!countElement || !itemsContainer || !totalElement) return;
-
-    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-    countElement.textContent = count;
-    itemsContainer.innerHTML = '';
-
-    if (cart.length === 0) {
-        itemsContainer.innerHTML = '<p class="empty-cart-msg">سبد خرید شما خالی است.</p>';
-        totalElement.textContent = '۰ تومان';
-        return;
-    }
-
-    let total = 0;
-    cart.forEach((item, index) => {
-        total += item.price * item.quantity;
-        const row = document.createElement('div');
-        row.className = 'cart-item-row';
-        row.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" onerror="this.src='dress1.jpg'">
-            <div class="cart-item-details">
-                <h4>${item.name}</h4>
-                <div class="item-meta">سایز: ${item.size} | تعداد: ${item.quantity}</div>
-                <div class="item-price">${(item.price * item.quantity).toLocaleString('fa-IR')} تومان</div>
-            </div>
-            <button class="remove-item-btn" onclick="removeFromCart(${index})">✕</button>
-        `;
-        itemsContainer.appendChild(row);
-    });
-
-    totalElement.textContent = total.toLocaleString('fa-IR') + ' تومان';
-}
-
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCartUI();
-}
-
-function checkoutToWhatsApp() {
-    if (cart.length === 0) {
-        alert('سبد خرید شما خالی است.');
-        return;
-    }
-
-    let message = '️ سفارش جدید از سایت A&B\n\n';
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        message += `${index + 1}. ${item.name}\n`;
-        message += `سایز: ${item.size}\n`;
-        message += `تعداد: ${item.quantity}\n`;
-        message += `قیمت: ${itemTotal.toLocaleString('fa-IR')} تومان\n\n`;
-    });
-
-    message += `━━━━━━━━━━━━━━━━\n`;
-    message += `💰 جمع کل: ${total.toLocaleString('fa-IR')} تومان\n\n`;
-    message += 'لطفاً برای تکمیل سفارش راهنمایی کنید. 🙏';
-
-    const whatsappLink = 'https://web.whatsapp.com/send?phone=989385734170&text=' + encodeURIComponent(message);
-    window.location.href = whatsappLink;
-}
-
-function addToCartDirect(name, price, image) {
-    const existingItem = cart.find(item => item.name === name && item.size === 'M');
-    if (existingItem) {
-        existingItem.quantity++;
-    } else {
-        cart.push({ name, price, image, size: 'M', quantity: 1 });
-    }
-    updateCartUI();
-    toggleCart();
-}
