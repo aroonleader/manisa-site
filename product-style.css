@@ -5,21 +5,21 @@
     --gold-dark: #aa8c2c;
     --text-color: #ffffff;
     --glass-bg: rgba(20, 20, 20, 0.7);
-    --glass-border: rgba(212, 175, 55, 0.2);
+    --glass-border: rgba(212, 175, 55, 0.3);
 }
 
-/* ========== پس‌زمینه لوکس با عکس ========== */
+/* ========== پس‌زمینه مرمری لوکس ========== */
 .product-detail-section {
     padding: 120px 0 80px;
     min-height: 100vh;
     position: relative;
     overflow: hidden;
-    /* عکس پس‌زمینه تو */
+    /* عکس مرمری تو - کاملاً واضح */
     background: url('product-bg.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
-/* لایه تاریک روی عکس برای خوانایی متن */
+/* لایه تاریک روی عکس - عدد رو کم کردم تا عکس بیشتر دیده بشه */
 .product-detail-section::before {
     content: '';
     position: absolute;
@@ -27,7 +27,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.5); /* از 0.75 به 0.5 تغییر کرد - عکس بیشتر دیده میشه */
     z-index: 0;
 }
 
@@ -41,7 +41,7 @@
     height: 200%;
     background: radial-gradient(
         circle,
-        rgba(212, 175, 55, 0.15) 0%,
+        rgba(212, 175, 55, 0.2) 0%,
         transparent 70%
     );
     animation: rotate-bg 30s linear infinite;
@@ -51,29 +51,6 @@
 @keyframes rotate-bg {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-/* ذرات معلق طلایی */
-.sparkles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(var(--gold-color) 1px, transparent 1px),
-        radial-gradient(var(--gold-color) 1px, transparent 1px);
-    background-size: 100px 100px;
-    background-position: 0 0, 50px 50px;
-    opacity: 0.1;
-    animation: sparkle 20s ease-in-out infinite;
-    z-index: 0;
-    pointer-events: none;
-}
-
-@keyframes sparkle {
-    0%, 100% { opacity: 0.1; }
-    50% { opacity: 0.3; }
 }
 
 /* کانتینر اصلی */
@@ -88,7 +65,7 @@
     gap: 10px;
     margin-bottom: 50px;
     font-size: 13px;
-    color: #888;
+    color: #aaa;
     animation: slideDown 0.8s ease-out;
 }
 
@@ -114,7 +91,7 @@
 }
 
 .breadcrumb span {
-    color: #555;
+    color: #888;
 }
 
 @keyframes slideDown {
@@ -175,15 +152,16 @@
     border-radius: 8px;
     box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.5),
-        0 0 100px rgba(212, 175, 55, 0.1);
+        0 0 100px rgba(212, 175, 55, 0.2);
     transition: all 0.5s ease;
+    background: rgba(0, 0, 0, 0.3); /* پس‌زمینه نیمه شفاف برای عکس محصول */
 }
 
 .main-image:hover {
     border-color: var(--gold-color);
     box-shadow: 
         0 30px 80px rgba(0, 0, 0, 0.6),
-        0 0 150px rgba(212, 175, 55, 0.2);
+        0 0 150px rgba(212, 175, 55, 0.3);
     transform: translateY(-5px);
 }
 
@@ -192,12 +170,12 @@
     height: 100%;
     object-fit: cover;
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-    filter: brightness(0.95);
+    filter: brightness(1); /* عکس محصول روشن‌تر */
 }
 
 .main-image:hover img {
     transform: scale(1.15) rotate(2deg);
-    filter: brightness(1);
+    filter: brightness(1.1);
 }
 
 /* افکت نور روی عکس */
@@ -211,7 +189,7 @@
     background: linear-gradient(
         45deg,
         transparent 30%,
-        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0.15) 50%,
         transparent 70%
     );
     transform: rotate(45deg);
@@ -240,17 +218,17 @@
     font-weight: bold;
     letter-spacing: 2px;
     border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
     animation: pulse-badge 2s ease-in-out infinite;
 }
 
 @keyframes pulse-badge {
     0%, 100% {
-        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
         transform: scale(1);
     }
     50% {
-        box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+        box-shadow: 0 15px 40px rgba(212, 175, 55, 0.7);
         transform: scale(1.05);
     }
 }
@@ -282,7 +260,8 @@
     padding: 8px 20px;
     border: 1px solid var(--glass-border);
     border-radius: 4px;
-    background: rgba(212, 175, 55, 0.05);
+    background: rgba(212, 175, 55, 0.1);
+    backdrop-filter: blur(10px);
     animation: fadeInUp 0.8s ease-out 0.7s both;
 }
 
@@ -293,19 +272,8 @@
     margin-bottom: 20px;
     color: #fff;
     line-height: 1.3;
-    background: linear-gradient(135deg, #fff 0%, var(--gold-light) 50%, #fff 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: 
-        fadeInUp 0.8s ease-out 0.8s both,
-        shimmer-text 3s ease-in-out infinite;
-}
-
-@keyframes shimmer-text {
-    0% { background-position: 0% center; }
-    50% { background-position: 100% center; }
-    100% { background-position: 0% center; }
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 0.8s ease-out 0.8s both;
 }
 
 @keyframes fadeInUp {
@@ -330,17 +298,17 @@
 .stars {
     color: var(--gold-color);
     font-size: 20px;
-    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
     animation: star-glow 2s ease-in-out infinite;
 }
 
 @keyframes star-glow {
-    0%, 100% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
-    50% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.8); }
+    0%, 100% { text-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+    50% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.9); }
 }
 
 .rating-count {
-    color: #888;
+    color: #ccc;
     font-size: 14px;
 }
 
@@ -349,23 +317,17 @@
     color: var(--gold-color);
     font-weight: 600;
     margin-bottom: 35px;
-    text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
-    animation: 
-        fadeInUp 0.8s ease-out 1s both,
-        price-glow 2s ease-in-out infinite;
-}
-
-@keyframes price-glow {
-    0%, 100% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
-    50% { text-shadow: 0 0 50px rgba(212, 175, 55, 0.6); }
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    animation: fadeInUp 0.8s ease-out 1s both;
 }
 
 .product-description {
     margin-bottom: 35px;
     padding: 25px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(0, 0, 0, 0.4); /* پس‌زمینه تیره‌تر برای خوانایی */
     border: 1px solid var(--glass-border);
     border-radius: 8px;
+    backdrop-filter: blur(10px);
     animation: fadeInUp 0.8s ease-out 1.1s both;
 }
 
@@ -378,17 +340,18 @@
 }
 
 .product-description p {
-    color: #aaa;
+    color: #ddd; /* متن روشن‌تر */
     font-size: 15px;
     line-height: 2.2;
 }
 
 .product-specs {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--glass-border);
     padding: 30px;
     margin-bottom: 35px;
     border-radius: 8px;
+    backdrop-filter: blur(10px);
     animation: fadeInUp 0.8s ease-out 1.2s both;
 }
 
@@ -396,7 +359,7 @@
     display: flex;
     justify-content: space-between;
     padding: 15px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.4s ease;
 }
 
@@ -405,13 +368,13 @@
 }
 
 .spec-item:hover {
-    background: rgba(212, 175, 55, 0.08);
+    background: rgba(212, 175, 55, 0.1);
     padding-right: 20px;
     border-radius: 4px;
 }
 
 .spec-label {
-    color: #888;
+    color: #ccc;
     font-size: 14px;
     letter-spacing: 1px;
 }
@@ -430,7 +393,7 @@
 
 .size-label {
     display: block;
-    color: #888;
+    color: #ccc;
     font-size: 14px;
     margin-bottom: 20px;
     letter-spacing: 1px;
@@ -446,7 +409,7 @@
     width: 55px;
     height: 55px;
     border: 2px solid var(--glass-border);
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(0, 0, 0, 0.4);
     color: #fff;
     font-family: inherit;
     font-size: 15px;
@@ -456,6 +419,7 @@
     border-radius: 6px;
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
 }
 
 .size-opt::before {
@@ -474,7 +438,7 @@
 .size-opt:hover {
     border-color: #fff;
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
 }
 
 .size-opt:hover::before {
@@ -485,29 +449,18 @@
 .size-opt.active {
     border-color: var(--gold-color);
     color: var(--gold-color);
-    background: rgba(212, 175, 55, 0.15);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+    background: rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
     animation: pulse-size 2s ease-in-out infinite;
 }
 
 @keyframes pulse-size {
     0%, 100% {
-        box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
     }
     50% {
-        box-shadow: 0 0 50px rgba(212, 175, 55, 0.6);
+        box-shadow: 0 0 50px rgba(212, 175, 55, 0.7);
     }
-}
-
-.size-guide-link {
-    color: #888;
-    font-size: 13px;
-    text-decoration: underline;
-    transition: 0.3s;
-}
-
-.size-guide-link:hover {
-    color: var(--gold-color);
 }
 
 /* تعداد */
@@ -518,7 +471,7 @@
 
 .quantity-label {
     display: block;
-    color: #888;
+    color: #ccc;
     font-size: 14px;
     margin-bottom: 20px;
     letter-spacing: 1px;
@@ -533,17 +486,19 @@
     border-radius: 8px;
     overflow: hidden;
     transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
 }
 
 .quantity-controls:hover {
     border-color: var(--gold-color);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
 }
 
 .quantity-controls button {
     width: 55px;
     height: 55px;
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.05);
     border: none;
     color: #fff;
     font-size: 24px;
@@ -625,18 +580,18 @@
     background: var(--gold-color);
     color: #000;
     transform: translateY(-5px);
-    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 20px 50px rgba(212, 175, 55, 0.5);
 }
 
 .buy-now-btn {
     background: linear-gradient(135deg, var(--gold-color), var(--gold-dark));
     color: #000;
-    box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 10px 40px rgba(212, 175, 55, 0.5);
 }
 
 .buy-now-btn:hover {
     transform: translateY(-5px);
-    box-shadow: 0 25px 60px rgba(212, 175, 55, 0.6);
+    box-shadow: 0 25px 60px rgba(212, 175, 55, 0.7);
     background: linear-gradient(135deg, var(--gold-light), var(--gold-color));
 }
 
@@ -654,7 +609,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    color: #aaa;
+    color: #ccc;
     font-size: 14px;
     transition: all 0.3s ease;
 }
@@ -671,24 +626,9 @@
 /* ========== محصولات پیشنهادی ========== */
 .related-products {
     padding: 120px 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
+    background: rgba(0, 0, 0, 0.8);
     border-top: 2px solid var(--glass-border);
     position: relative;
-}
-
-.related-products::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-        circle at center,
-        rgba(212, 175, 55, 0.1) 0%,
-        transparent 70%
-    );
-    pointer-events: none;
 }
 
 .related-products .section-title {
