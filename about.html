@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درباره ما | AYDIN & BAHMAN</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="about-style.css">
+</head>
+<body>
+
+    <!-- لودینگ -->
+    <div id="preloader">
+        <div class="loader-content">
+            <h1 class="loader-logo">A&B</h1>
+            <p>LOADING...</p>
+        </div>
+    </div>
+
+    <!-- نوار بالا -->
+    <div class="top-bar">ارسال رایگان برای خریدهای بالای ۲ میلیون تومان</div>
+
+    <!-- هدر -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="menu-toggle" onclick="toggleMobileMenu()">☰</div>
+            <nav class="nav-right">
+                <a href="index.html">خانه</a>
+                <a href="index.html#products">محصولات</a>
+                <a href="about.html">درباره ما</a>
+                <a href="contact.html">تماس با ما</a>
+            </nav>
+            <div class="logo">A&B <span>LUXURY</span></div>
+            <div class="nav-left">
+                <a href="index.html#products" class="cart">سبد خرید</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- منوی موبایل -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h2>منو</h2>
+            <span class="close-mobile" onclick="toggleMobileMenu()">✕</span>
+        </div>
+        <nav class="mobile-nav">
+            <a href="index.html" onclick="toggleMobileMenu()">خانه</a>
+            <a href="index.html#products" onclick="toggleMobileMenu()">محصولات</a>
+            <a href="about.html" onclick="toggleMobileMenu()">درباره ما</a>
+            <a href="contact.html" onclick="toggleMobileMenu()">تماس با ما</a>
+        </nav>
+    </div>
+
+    <!-- هیرو درباره ما -->
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1 class="fade-in">داستان ما</h1>
+            <p class="fade-in">AYDIN & BAHMAN - Luxury Fashion</p>
+        </div>
+    </section>
+
+    <!-- بخش داستان برند -->
+    <section class="story-section">
+        <div class="container story-content">
+            <div class="story-text">
+                <span class="section-label">داستان برند</span>
+                <h2>از ایده تا واقعیت</h2>
+                <p>
+                    برند <strong>AYDIN & BAHMAN</strong> با عشق و اشتیاق به دنیای مد و فشن متولد شد. 
+                    ما معتقدیم هر فردی شایسته پوشیدن لباس‌هایی است که نه تنها زیبا هستند، 
+                    بلکه احساس اعتماد به نفس و خاص بودن را منتقل می‌کنند.
+                </p>
+                <p>
+                    هر قطعه از کالکشن ما با دقت و وسواس انتخاب شده تا بالاترین کیفیت و 
+                    منحصر به فرد بودن را تضمین کند. ما به جزئیات اهمیت می‌دهیم، 
+                    چون می‌دانیم که تفاوت در همین جزئیات است.
+                </p>
+            </div>
+            <div class="story-image">
+                <div class="image-frame">
+                    <img src="banner.jpg" alt="درباره A&B">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش ارزش‌ها -->
+    <section class="values-section">
+        <div class="container">
+            <span class="section-label center">ارزش‌های ما</span>
+            <h2 class="section-title center">چرا A&B؟</h2>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon"></div>
+                    <h3>کیفیت لوکس</h3>
+                    <p>استفاده از بهترین متریال و پارچه‌های وارداتی با کیفیت عالی</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon"></div>
+                    <h3>طراحی منحصر به فرد</h3>
+                    <p>طراحی‌های خاص و متفاوت که در کمتر جایی پیدا می‌شود</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon"></div>
+                    <h3>تعهد به مشتری</h3>
+                    <p>پشتیبانی کامل و ضمانت رضایت مشتریان عزیز</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon"></div>
+                    <h3>پایداری</h3>
+                    <p>توجه به محیط زیست و استفاده از مواد دوستدار طبیعت</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش تیم -->
+    <section class="team-section">
+        <div class="container">
+            <span class="section-label center">تیم ما</span>
+            <h2 class="section-title center">بنیان‌گذاران</h2>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="dress1.jpg" alt="آیدین">
+                    </div>
+                    <h3>آیدین</h3>
+                    <p>هم‌بنیان‌گذار و طراح</p>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="dress2.jpg" alt="بهنام">
+                    </div>
+                    <h3>بهنام</h3>
+                    <p>هم‌بنیان‌گذار و مدیر اجرایی</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <h4>AYDIN & BAHMAN</h4>
+                <p>برند A&B</p>
+                <p>تهران، ایران</p>
+            </div>
+            <div class="footer-col">
+                <h4>دسترسی سریع</h4>
+                <a href="index.html">خانه</a>
+                <a href="index.html#products">محصولات</a>
+                <a href="about.html">درباره ما</a>
+                <a href="contact.html">تماس با ما</a>
+            </div>
+            <div class="footer-col">
+                <h4>دنبال کنید</h4>
+                <a href="https://instagram.com" target="_blank">اینستاگرام</a>
+                <a href="#">تلگرام</a>
+            </div>
+        </div>
+        <div class="copyright">© ۱۴۰۳ AYDIN & BAHMAN</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
