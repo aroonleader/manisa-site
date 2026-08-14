@@ -8,18 +8,18 @@
     --glass-border: rgba(212, 175, 55, 0.3);
 }
 
-/* ========== پس‌زمینه مرمری لوکس ========== */
+/* ========== پس‌زمینه لوکس ========== */
 .product-detail-section {
     padding: 120px 0 80px;
     min-height: 100vh;
     position: relative;
     overflow: hidden;
-    /* عکس مرمری تو - کاملاً واضح */
-    background: url('product-bg.jpg') no-repeat center center fixed;
+    /*?v=2 یعنی نسخه ۲ - باعث میشه مرورگر عکس جدید رو دانلود کنه */
+    background: url('product-bg.jpg?v=2') no-repeat center center fixed;
     background-size: cover;
 }
 
-/* لایه تاریک روی عکس - عدد رو کم کردم تا عکس بیشتر دیده بشه */
+/* لایه تاریک روی عکس */
 .product-detail-section::before {
     content: '';
     position: absolute;
@@ -27,7 +27,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* از 0.75 به 0.5 تغییر کرد - عکس بیشتر دیده میشه */
+    background: rgba(0, 0, 0, 0.5);
     z-index: 0;
 }
 
@@ -154,7 +154,7 @@
         0 20px 60px rgba(0, 0, 0, 0.5),
         0 0 100px rgba(212, 175, 55, 0.2);
     transition: all 0.5s ease;
-    background: rgba(0, 0, 0, 0.3); /* پس‌زمینه نیمه شفاف برای عکس محصول */
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .main-image:hover {
@@ -170,7 +170,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-    filter: brightness(1); /* عکس محصول روشن‌تر */
+    filter: brightness(1);
 }
 
 .main-image:hover img {
@@ -324,7 +324,7 @@
 .product-description {
     margin-bottom: 35px;
     padding: 25px;
-    background: rgba(0, 0, 0, 0.4); /* پس‌زمینه تیره‌تر برای خوانایی */
+    background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--glass-border);
     border-radius: 8px;
     backdrop-filter: blur(10px);
@@ -340,7 +340,7 @@
 }
 
 .product-description p {
-    color: #ddd; /* متن روشن‌تر */
+    color: #ddd;
     font-size: 15px;
     line-height: 2.2;
 }
