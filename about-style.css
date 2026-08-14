@@ -1,0 +1,9 @@
+:root {
+    --gold-color: #d4af37;
+    --gold-light: #f3e5ab;
+    --text-color: #ffffff;
+    --glass-border: rgba(212, 175, 55, 0.2);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+html { 
