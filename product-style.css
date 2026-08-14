@@ -14,8 +14,8 @@
     min-height: 100vh;
     position: relative;
     overflow: hidden;
-    /*?v=2 یعنی نسخه ۲ - باعث میشه مرورگر عکس جدید رو دانلود کنه */
-    background: url('product-bg.jpg?v=2') no-repeat center center fixed;
+    /* اسم عکس جدیدت رو اینجا بذار */
+    background: url('product-bg2.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
