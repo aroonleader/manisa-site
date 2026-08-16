@@ -398,3 +398,115 @@ function animateSkillBars() {
 }
 
 initResumeAnimations();
+// ========== ربات پشتیبانی ==========
+const chatQA = [
+    { q: '🛍️ چطوری سفارش بدم؟', keys: ['سفارش', 'خرید', 'سبد', 'ثبت'], a: 'خیلی ساده‌ست! 😊\n۱️⃣ محصول مورد نظرت رو به سبد خرید اضافه کن\n۲️⃣ دکمه «تایید و ارسال سفارش» رو بزن\n۳️ سفارشت از طریق واتساپ ثبت می‌شه و ما راهنماییت می‌کنیم.' },
+    { q: '🚚 هزینه و زمان ارسال', keys: ['ارسال', 'پست', 'تحویل', 'کی میاد', 'هزینه'], a: '🚚 برای خرید بالای ۲ میلیون تومان، ارسال کاملاً رایگانه!\n⏰ سفارش‌ها بین ۲ تا ۴ روز کاری به دستت می‌رسه.' },
+    { q: '💳 نحوه پرداخت', keys: ['پرداخت', 'کارت', 'پول', 'واریز'], a: '💳 بعد از ثبت سفارش در واتساپ، پرداخت به صورت کارت‌به‌کارت یا لینک پرداخت امن انجام می‌شه.\n🔒 داخل سایت هیچ پرداخت آنلاینی انجام نمی‌شه.' },
+    { q: '🔄 شرایط مرجوعی', keys: ['مرجوع', 'برگشت', 'تعویض', 'پس'], a: '🔄 تا ۷ روز بعد از دریافت کالا فرصت مرجوعی داری.\n✅ شرط: لباس استفاده نشده و اتیکت‌ها سالم باشن.' },
+    { q: '📏 راهنمای سایز', keys: ['سایز', 'اندازه', 'قد'], a: '📏 سایزها از S تا XL هستن.\n💡 اگه بین دو سایزی، سایز بزرگ‌تر رو انتخاب کن.\nبرای راهنمایی دقیق‌تر، توی واتساپ پیام بده.' },
+    { q: '👤 اتصال به پشتیبان انسانی', keys: ['پشتیبان', 'تماس', 'تلفن', 'واتساپ', 'انسان'], a: 'HUMAN' }
+];
+
+let chatOpened = false;
+
+function toggleChat() {
+    const widget = document.getElementById('chat-widget');
+    const toggleBtn = document.getElementById('chat-toggle');
+    if (!widget || !toggleBtn) return;
+
+    widget.classList.toggle('open');
+    toggleBtn.classList.toggle('hidden');
+
+    if (!chatOpened && widget.classList.contains('open')) {
+        chatOpened = true;
+        setTimeout(() => {
+            botSay('سلام! 👋 من ربات پشتیبانی A&B هستم. 🤖\nهر سوالی داری بپرس یا از دکمه‌های آماده پایین استفاده کن. 🎧');
+            renderQuickButtons();
+        }, 400);
+    }
+}
+
+function addChatMessage(text, who) {
+    const box = document.getElementById('chat-messages');
+    if (!box) return;
+    const msg = document.createElement('div');
+    msg.className = 'chat-msg ' + who;
+    msg.textContent = text;
+    box.appendChild(msg);
+    box.scrollTop = box.scrollHeight;
+}
+
+function botSay(text) {
+    const box = document.getElementById('chat-messages');
+    if (!box) return;
+    const typing = document.createElement('div');
+    typing.className = 'chat-msg bot typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    box.appendChild(typing);
+    box.scrollTop = box.scrollHeight;
+
+    setTimeout(() => {
+        typing.remove();
+        addChatMessage(text, 'bot');
+    }, 800);
+}
+
+function showHumanButton() {
+    setTimeout(() => {
+        const box = document.getElementById('chat-messages');
+        if (!box) return;
+        const link = document.createElement('a');
+        link.className = 'chat-human-btn';
+        link.href = 'https://wa.me/989385734170';
+        link.target = '_blank';
+        link.textContent = '💬 شروع گفتگو در واتساپ';
+        box.appendChild(link);
+        box.scrollTop = box.scrollHeight;
+    }, 1600);
+}
+
+function renderQuickButtons() {
+    const quick = document.getElementById('chat-quick');
+    if (!quick) return;
+    quick.innerHTML = '';
+    chatQA.forEach((item, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'quick-btn';
+        btn.textContent = item.q;
+        btn.onclick = () => askQuestion(i);
+        quick.appendChild(btn);
+    });
+}
+
+function askQuestion(i) {
+    const item = chatQA[i];
+    addChatMessage(item.q, 'user');
+    if (item.a === 'HUMAN') {
+        botSay('حتماً! 🌟 برای صحبت با پشتیبان انسانی، روی دکمه زیر بزن:');
+        showHumanButton();
+    } else {
+        botSay(item.a);
+    }
+}
+
+function sendChatMessage() {
+    const input = document.getElementById('chat-input');
+    if (!input) return;
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    addChatMessage(text, 'user');
+
+    const found = chatQA.find(item => item.keys.some(k => text.includes(k)));
+    if (found) {
+        if (found.a === 'HUMAN') {
+            botSay('حتماً! 🌟 برای صحبت با پشتیبان انسانی، روی دکمه زیر بزن:');
+            showHumanButton();
+        } else {
+            botSay(found.a);
+        }
+    } else {
+        botSay('ببخشید، کامل متوجه نشدم 🙏\nلطفاً از دکمه‌های پایین استفاده کن یا مستقیم توی واتساپ پیام بده. 💬');
+    }
+}
