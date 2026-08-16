@@ -178,7 +178,7 @@
                         <span class="cat-tag">شومیز</span>
                         <h3>شومیز حریر صورتی</h3>
                         <div class="price-wrapper">
-                            <span class="old-price">۱,۵۰۰,۰۰۰</span>
+                            <span class="old-price">۱,۵۰,۰۰۰</span>
                             <p class="price">۱,۲۰۰,۰۰۰ تومان</p>
                         </div>
                     </div>
@@ -206,7 +206,7 @@
                     <div class="product-info">
                         <span class="cat-tag">مانتو</span>
                         <h3>مانتو بهاره کرم</h3>
-                        <p class="price">۱,۹۵۰,۰۰۰ تومان</p>
+                        <p class="price">۱,۹۵۰,۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('مانتو بهاره کرم', 1950000, 'dress5.jpg')">افزودن به سبد</button>
                 </article>
@@ -221,8 +221,8 @@
                         <span class="cat-tag">پیراهن</span>
                         <h3>پیراهن روزمره</h3>
                         <div class="price-wrapper">
-                            <span class="old-price">۱,۸۳۰,۰۰۰</span>
-                            <p class="price">۱,۶۵۰,۰۰۰ تومان</p>
+                            <span class="old-price">۱,۸۳,۰۰۰</span>
+                            <p class="price">۱,۶۵۰,۰۰ تومان</p>
                         </div>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('پیراهن روزمره', 1650000, 'dress6.jpg')">افزودن به سبد</button>
@@ -270,7 +270,7 @@
         </div>
     </section>
 
-    <!-- ========== بخش رزومه شخصی (جدید) ========== -->
+    <!-- ========== بخش رزومه شخصی ========== -->
     <section class="about-section" id="about">
         <div class="container">
             <span class="section-label">رزومه شخصی</span>
@@ -393,7 +393,6 @@
             <span class="close-cart" onclick="toggleCart()">✕</span>
         </div>
         
-        <!-- نوار پیشرفت ارسال رایگان -->
         <div class="free-shipping-progress">
             <p id="shipping-message">۲,۰۰۰,۰۰۰ تومان دیگه خرید کن تا ارسال رایگان بشه!</p>
             <div class="progress-bar">
@@ -420,6 +419,30 @@
 
     <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" onclick="scrollToTop()">⬆</button>
+
+    <!-- ========== ربات پشتیبانی ========== -->
+    <div id="chat-widget" class="chat-widget">
+        <div class="chat-header">
+            <div class="chat-avatar">🤖<span class="avatar-headset">🎧</span></div>
+            <div class="chat-header-info">
+                <strong>پشتیبان هوشمند A&B</strong>
+                <span class="chat-status"><i></i> آنلاین — پاسخ فوری</span>
+            </div>
+            <span class="chat-close" onclick="toggleChat()">✕</span>
+        </div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-quick" id="chat-quick"></div>
+        <div class="chat-input-box">
+            <input type="text" id="chat-input" placeholder="سوالت رو بنویس..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+            <button class="chat-send" onclick="sendChatMessage()">➤</button>
+        </div>
+    </div>
+
+    <button id="chat-toggle" class="chat-toggle" onclick="toggleChat()">
+        <span class="chat-pulse"></span>
+        <span class="chat-toggle-icon">🤖</span>
+        <span class="chat-toggle-headset">🎧</span>
+    </button>
 
     <a href="https://wa.me/989385734170" target="_blank" class="whatsapp-float">
         <svg viewBox="0 0 32 32" class="whatsapp-icon"><path fill="currentColor" d="M16 0C7.163 0 0 7.163 0 16c0 2.825.737 5.607 2.137 8.048L0 32l7.933-2.082C10.337 31.229 13.067 32 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0z"/></svg>
