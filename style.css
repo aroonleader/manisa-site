@@ -1650,3 +1650,20 @@ footer {
     .chat-toggle { bottom: 20px; left: 20px; width: 55px; height: 55px; font-size: 24px; }
     .chat-widget { bottom: 20px; left: 15px; height: 70vh; }
 }
+/* ========== آواتار + extras رزومه ========== */
+.resume-left { display: flex; flex-direction: column; gap: 30px; align-items: center; }
+
+.avatar-circle { width: 130px; height: 130px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold-color), var(--gold-light)); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4), 0 0 0 6px rgba(212, 175, 55, 0.1); position: relative; animation: avatarGlow 3s ease-in-out infinite; }
+.avatar-circle span { font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 700; color: #0a0a0a; }
+@keyframes avatarGlow { 0%, 100% { box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4), 0 0 0 6px rgba(212, 175, 55, 0.1); } 50% { box-shadow: 0 10px 50px rgba(212, 175, 55, 0.6), 0 0 0 10px rgba(212, 175, 55, 0.2); } }
+
+.resume-extras { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; padding: 20px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; }
+.extra-item { display: flex; align-items: center; gap: 15px; }
+.extra-icon { font-size: 26px; }
+.extra-item strong { display: block; color: var(--gold-color); font-size: 14px; margin-bottom: 3px; }
+.extra-item p { color: var(--text-muted); font-size: 13px; margin: 0; }
+
+.resume-download { background: var(--gold-color) !important; color: #000 !important; font-weight: 700; border-color: var(--gold-color) !important; }
+.resume-download:hover { background: var(--gold-light) !important; color: #000 !important; transform: translateY(-3px); box-shadow: var(--shadow-gold); }
+
+@media (max-width: 900px) { .avatar-circle { width: 100px; height: 100px; } .avatar-circle span { font-size: 48px; } }
