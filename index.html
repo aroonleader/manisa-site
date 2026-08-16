@@ -12,6 +12,10 @@
     <meta property="og:image" content="banner.jpg">
     <meta property="og:type" content="website">
     
+    <!-- Security -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data:; object-src 'none'; base-uri 'self'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👗</text></svg>">
     
@@ -37,7 +41,7 @@
             <div class="menu-toggle" onclick="toggleMobileMenu()">☰</div>
             <nav class="nav-right">
                 <a href="index.html">خانه</a>
-                <a href="#about">درباره ما</a>
+                <a href="#about">رزومه من</a>
                 <a href="#contact">تماس با ما</a>
             </nav>
             <div class="logo" onclick="window.location.href='index.html'">A&B <span>LUXURY</span></div>
@@ -54,7 +58,7 @@
         </div>
         <nav class="mobile-nav">
             <a href="index.html" onclick="toggleMobileMenu()">خانه</a>
-            <a href="#about" onclick="toggleMobileMenu()">درباره ما</a>
+            <a href="#about" onclick="toggleMobileMenu()">رزومه من</a>
             <a href="#contact" onclick="toggleMobileMenu()">تماس با ما</a>
         </nav>
     </div>
@@ -189,7 +193,7 @@
                     <div class="product-info">
                         <span class="cat-tag">کت و شلوار</span>
                         <h3>کت و شلوار رسمی</h3>
-                        <p class="price">۴,۸۰۰,۰۰ تومان</p>
+                        <p class="price">۴,۸۰,۰۰ تومان</p>
                     </div>
                     <button class="add-btn" onclick="addToCartDirect('کت و شلوار رسمی', 4800000, 'dress4.jpg')">افزودن به سبد</button>
                 </article>
@@ -266,14 +270,75 @@
         </div>
     </section>
 
+    <!-- ========== بخش رزومه شخصی (جدید) ========== -->
     <section class="about-section" id="about">
-        <div class="container about-content">
-            <span class="section-label">درباره A&B</span>
-            <h2>داستان ما</h2>
-            <p class="about-text">سلام، من <strong>آیدین</strong> و دوستم <strong>بهنام</strong> هستیم.</p>
-            <p class="about-text">این سایت رو با عشق و تلاش زیاد ساختیم تا بتونیم بهترین لباس‌های زنانه رو با کیفیت عالی و قیمت مناسب به شما عرضه کنیم.</p>
-            <p class="about-text">هر لباسی که می‌بینید با دقت انتخاب شده و ما متعهد هستیم که بهترین تجربه خرید رو براتون بسازیم.</p>
-            <p class="about-signature">— آیدین و بهنام</p>
+        <div class="container">
+            <span class="section-label">رزومه شخصی</span>
+            <h2 class="section-title">درباره من</h2>
+
+            <div class="resume-grid">
+
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">aydin@portfolio:~</span>
+                    </div>
+                    <div class="terminal-body" id="terminal-body"></div>
+                </div>
+
+                <div class="resume-info">
+                    <div class="resume-badge">✨ این سایت یک نمونه کار (دمو) است</div>
+                    <h3 class="resume-name">AYDIN</h3>
+                    <p class="resume-role">طراح و توسعه‌دهنده وب</p>
+                    <p class="resume-bio">
+                        سلام! من آیدین هستم. این فروشگاه آنلاین لوکس (A&B) رو از صفر طراحی و برنامه‌نویسی کردم تا مهارت‌هام رو نشون بدم. همه چیز — از طراحی رابط کاربری تا سبد خرید و صفحه‌بندی — کار دست خودمه.
+                    </p>
+
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-header"><span>HTML / CSS</span><span>۹۰٪</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span>JavaScript</span><span>۷۵٪</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span>طراحی واکنش‌گرا (Responsive)</span><span>۸۵٪</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span>UI / UX</span><span>۸۰٪</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header"><span>Git & GitHub</span><span>۷۰٪</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="resume-links">
+                        <a href="https://github.com/aroonleader" target="_blank" class="resume-link">💻 GitHub</a>
+                        <a href="https://instagram.com/aydin_bahman" target="_blank" class="resume-link">📸 اینستاگرام</a>
+                        <a href="https://wa.me/989385734170" target="_blank" class="resume-link">💬 واتساپ</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="project-showcase">
+                <h3>🛍️ پروژه نمونه: فروشگاه لوکس A&B</h3>
+                <p>همین سایتی که می‌بینید یک فروشگاه آنلاین کامله: سبد خرید با حافظه، فیلتر و جستجوی محصولات، صفحه‌بندی، تخفیف‌ها، طراحی واکنش‌گرا و ارسال سفارش از طریق واتساپ — همه رو من پیاده‌سازی کردم.</p>
+                <div class="project-tags">
+                    <span>HTML5</span>
+                    <span>CSS3</span>
+                    <span>JavaScript</span>
+                    <span>Responsive</span>
+                    <span>GitHub Pages</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -311,7 +376,7 @@
             <div class="footer-col">
                 <h4>دسترسی سریع</h4>
                 <a href="index.html">خانه</a>
-                <a href="#about">درباره ما</a>
+                <a href="#about">رزومه من</a>
                 <a href="#contact">تماس با ما</a>
             </div>
             <div class="footer-col">
@@ -319,7 +384,7 @@
                 <a href="https://instagram.com/aydin_bahman" target="_blank">اینستاگرام</a>
             </div>
         </div>
-        <div class="copyright">© ۱۴۰۴ AYDIN & BAHMAN</div>
+        <div class="copyright">© ۱۴۰۴ AYDIN & BAHMAN — طراحی و توسعه توسط AYDIN</div>
     </footer>
 
     <div id="cart-sidebar" class="cart-sidebar">
@@ -330,7 +395,7 @@
         
         <!-- نوار پیشرفت ارسال رایگان -->
         <div class="free-shipping-progress">
-            <p id="shipping-message">۲,۰۰۰,۰۰ تومان دیگه خرید کن تا ارسال رایگان بشه!</p>
+            <p id="shipping-message">۲,۰۰۰,۰۰۰ تومان دیگه خرید کن تا ارسال رایگان بشه!</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progress-fill"></div>
             </div>
