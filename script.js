@@ -1,7 +1,13 @@
-// متغیرهای سراسری - برای استفاده در همه صفحات
+// ========== متغیرهای سراسری ==========
 let cart = [];
 let currentProduct = null;
 
+// تنظیمات صفحه‌بندی
+let currentPage = 1;
+let currentCategory = 'all';
+const ITEMS_PER_PAGE = 5; // تعداد محصول در هر صفحه
+
+// ========== پری‌لودر ==========
 window.addEventListener('load', function() {
     const preloader = document.getElementById('preloader');
     if (preloader) {
@@ -12,31 +18,24 @@ window.addEventListener('load', function() {
             }, 500);
         }, 1500);
     }
+
+    loadCart();
+    applyView();
 });
 
+// ========== فیلتر دسته‌بندی ==========
 function filterProducts(category, clickedButton) {
-    const cards = document.querySelectorAll('.product-card');
-    const title = document.getElementById('products-title');
-    const noResult = document.getElementById('no-result');
+    currentCategory = category;
+    currentPage = 1;
 
+    const title = document.getElementById('products-title');
     const names = { all: 'همه محصولات', manto: 'مانتو', pirahan: 'پیراهن', shomiz: 'شومیز', set: 'کت و شلوار' };
     if (title) title.textContent = names[category];
 
     document.querySelectorAll('.cat-item').forEach(btn => btn.classList.remove('active'));
     if (clickedButton) clickedButton.classList.add('active');
 
-    let count = 0;
-    cards.forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-            card.classList.remove('hide');
-            card.classList.add('visible');
-            count++;
-        } else {
-            card.classList.add('hide');
-        }
-    });
-
-    if (noResult) noResult.style.display = count === 0 ? 'block' : 'none';
+    applyView();
     document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -46,6 +45,86 @@ document.querySelectorAll('.cat-item').forEach(btn => {
     });
 });
 
+// ========== صفحه‌بندی و نمایش ==========
+function applyView() {
+    const cards = document.querySelectorAll('.product-card');
+    const noResult = document.getElementById('no-result');
+
+    const filtered = [];
+    cards.forEach(card => {
+        if (currentCategory === 'all' || card.dataset.category === currentCategory) {
+            filtered.push(card);
+        }
+    });
+
+    let totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    if (totalPages < 1) totalPages = 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+
+    cards.forEach(card => {
+        card.style.display = 'none';
+        card.classList.add('hide');
+        card.classList.remove('visible');
+    });
+
+    filtered.forEach((card, index) => {
+        if (index >= start && index < end) {
+            card.style.display = '';
+            card.classList.remove('hide');
+            card.classList.add('visible');
+        }
+    });
+
+    if (noResult) noResult.style.display = filtered.length === 0 ? 'block' : 'none';
+
+    renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+    const container = document.getElementById('pagination');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    if (totalPages <= 1) {
+        container.style.display = 'none';
+        return;
+    }
+    container.style.display = 'flex';
+
+    const prev = document.createElement('button');
+    prev.className = 'page-btn nav';
+    prev.textContent = 'قبلی';
+    prev.disabled = (currentPage === 1);
+    prev.onclick = function() { goToPage(currentPage - 1); };
+    container.appendChild(prev);
+
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+        btn.textContent = i.toLocaleString('fa-IR');
+        btn.onclick = function() { goToPage(i); };
+        container.appendChild(btn);
+    }
+
+    const next = document.createElement('button');
+    next.className = 'page-btn nav';
+    next.textContent = 'بعدی';
+    next.disabled = (currentPage === totalPages);
+    next.onclick = function() { goToPage(currentPage + 1); };
+    container.appendChild(next);
+}
+
+function goToPage(page) {
+    currentPage = page;
+    applyView();
+    document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ========== سبد خرید ==========
 function toggleCart() {
     document.getElementById('cart-sidebar')?.classList.toggle('open');
     document.getElementById('cart-overlay')?.classList.toggle('open');
@@ -59,7 +138,10 @@ function addToCartDirect(name, price, image) {
     const existing = cart.find(i => i.name === name && i.size === 'M');
     if (existing) existing.quantity++;
     else cart.push({ name, price, image, size: 'M', quantity: 1 });
+
+    saveCart();
     updateCartUI();
+
     const sidebar = document.getElementById('cart-sidebar');
     if (sidebar && !sidebar.classList.contains('open')) toggleCart();
 }
@@ -70,7 +152,7 @@ function updateCartUI() {
     const totalEl = document.getElementById('cart-total-price');
     if (!countEl || !container || !totalEl) return;
 
-    countEl.textContent = cart.reduce((s, i) => s + i.quantity, 0);
+    countEl.textContent = cart.reduce((s, i) => s + i.quantity, 0).toLocaleString('fa-IR');
     container.innerHTML = '';
 
     if (cart.length === 0) {
@@ -84,30 +166,56 @@ function updateCartUI() {
         total += item.price * item.quantity;
         const row = document.createElement('div');
         row.className = 'cart-item-row';
-        row.innerHTML = `<img src="${item.image}" alt="${item.name}"><div class="cart-item-details"><h4>${item.name}</h4><div class="item-meta">سایز: ${item.size} | تعداد: ${item.quantity}</div><div class="item-price">${(item.price * item.quantity).toLocaleString('fa-IR')} تومان</div></div><button class="remove-item-btn" onclick="removeFromCart(${index})">✕</button>`;
+        row.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <div class="cart-item-details">
+                <h4>${item.name}</h4>
+                <div class="item-meta">سایز: ${item.size} | تعداد: ${item.quantity}</div>
+                <div class="item-price">${(item.price * item.quantity).toLocaleString('fa-IR')} تومان</div>
+            </div>
+            <button class="remove-item-btn" onclick="removeFromCart(${index})">✕</button>
+        `;
         container.appendChild(row);
     });
+
     totalEl.textContent = total.toLocaleString('fa-IR') + ' تومان';
 }
 
 function removeFromCart(index) {
     cart.splice(index, 1);
+    saveCart();
+    updateCartUI();
+}
+
+function saveCart() {
+    localStorage.setItem('ab_cart', JSON.stringify(cart));
+}
+
+function loadCart() {
+    try {
+        cart = JSON.parse(localStorage.getItem('ab_cart')) || [];
+    } catch (e) {
+        cart = [];
+    }
     updateCartUI();
 }
 
 function checkoutToWhatsApp() {
     if (cart.length === 0) { alert('سبد خرید خالی است.'); return; }
+
     let msg = '🛍️ سفارش جدید از سایت A&B\n\n';
     let total = 0;
     cart.forEach((item, i) => {
         const t = item.price * item.quantity;
         total += t;
-        msg += `${i+1}. ${item.name}\nسایز: ${item.size} | تعداد: ${item.quantity}\nقیمت: ${t.toLocaleString('fa-IR')} تومان\n\n`;
+        msg += `${i + 1}. ${item.name}\nسایز: ${item.size} | تعداد: ${item.quantity}\nقیمت: ${t.toLocaleString('fa-IR')} تومان\n\n`;
     });
-    msg += `━━━━━━━━━━━━━━━━\n💰 جمع کل: ${total.toLocaleString('fa-IR')} تومان\n\nلطفاً راهنمایی کنید. `;
-    window.location.href = 'https://web.whatsapp.com/send?phone=989385734170&text=' + encodeURIComponent(msg);
+    msg += `━━━━━━━━━━━━━━━━\n💰 جمع کل: ${total.toLocaleString('fa-IR')} تومان\n\nلطفاً راهنمایی کنید.`;
+
+    window.location.href = 'https://wa.me/989385734170?text=' + encodeURIComponent(msg);
 }
 
+// ========== هدر هنگام اسکرول ==========
 const header = document.getElementById('main-header');
 window.addEventListener('scroll', () => {
     if (header) header.classList.toggle('scrolled', window.scrollY > 50);
