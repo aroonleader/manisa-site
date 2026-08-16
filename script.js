@@ -1,11 +1,12 @@
 // ========== متغیرهای سراسری ==========
 let cart = [];
 let currentProduct = null;
-
-// تنظیمات صفحه‌بندی
 let currentPage = 1;
 let currentCategory = 'all';
-const ITEMS_PER_PAGE = 5; // تعداد محصول در هر صفحه
+let currentSearch = '';
+let currentSort = 'default';
+const ITEMS_PER_PAGE = 5;
+const FREE_SHIPPING_THRESHOLD = 2000000;
 
 // ========== پری‌لودر ==========
 window.addEventListener('load', function() {
@@ -21,9 +22,11 @@ window.addEventListener('load', function() {
 
     loadCart();
     applyView();
+    initScrollAnimations();
+    initBackToTop();
 });
 
-// ========== فیلتر دسته‌بندی ==========
+// ========== فیلتر، جستجو و مرتب‌سازی ==========
 function filterProducts(category, clickedButton) {
     currentCategory = category;
     currentPage = 1;
@@ -39,6 +42,20 @@ function filterProducts(category, clickedButton) {
     document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
 }
 
+function searchProducts() {
+    const input = document.getElementById('search-input');
+    currentSearch = input ? input.value.trim().toLowerCase() : '';
+    currentPage = 1;
+    applyView();
+}
+
+function sortProducts() {
+    const select = document.getElementById('sort-select');
+    currentSort = select ? select.value : 'default';
+    currentPage = 1;
+    applyView();
+}
+
 document.querySelectorAll('.cat-item').forEach(btn => {
     btn.addEventListener('click', function() {
         filterProducts(this.dataset.category, this);
@@ -47,16 +64,26 @@ document.querySelectorAll('.cat-item').forEach(btn => {
 
 // ========== صفحه‌بندی و نمایش ==========
 function applyView() {
-    const cards = document.querySelectorAll('.product-card');
+    const cards = Array.from(document.querySelectorAll('.product-card'));
     const noResult = document.getElementById('no-result');
 
-    const filtered = [];
-    cards.forEach(card => {
-        if (currentCategory === 'all' || card.dataset.category === currentCategory) {
-            filtered.push(card);
-        }
+    // فیلتر بر اساس دسته‌بندی و جستجو
+    let filtered = cards.filter(card => {
+        const matchCategory = currentCategory === 'all' || card.dataset.category === currentCategory;
+        const matchSearch = !currentSearch || card.dataset.name.toLowerCase().includes(currentSearch);
+        return matchCategory && matchSearch;
     });
 
+    // مرتب‌سازی
+    if (currentSort === 'price-low') {
+        filtered.sort((a, b) => parseInt(a.dataset.price) - parseInt(b.dataset.price));
+    } else if (currentSort === 'price-high') {
+        filtered.sort((a, b) => parseInt(b.dataset.price) - parseInt(a.dataset.price));
+    } else if (currentSort === 'name') {
+        filtered.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name, 'fa'));
+    }
+
+    // صفحه‌بندی
     let totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
     if (totalPages < 1) totalPages = 1;
     if (currentPage > totalPages) currentPage = totalPages;
@@ -141,9 +168,17 @@ function addToCartDirect(name, price, image) {
 
     saveCart();
     updateCartUI();
+    showToast();
+}
 
-    const sidebar = document.getElementById('cart-sidebar');
-    if (sidebar && !sidebar.classList.contains('open')) toggleCart();
+function showToast() {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
 }
 
 function updateCartUI() {
@@ -158,6 +193,7 @@ function updateCartUI() {
     if (cart.length === 0) {
         container.innerHTML = '<p class="empty-cart-msg">سبد خرید شما خالی است.</p>';
         totalEl.textContent = '۰ تومان';
+        updateShippingProgress(0);
         return;
     }
 
@@ -179,6 +215,25 @@ function updateCartUI() {
     });
 
     totalEl.textContent = total.toLocaleString('fa-IR') + ' تومان';
+    updateShippingProgress(total);
+}
+
+function updateShippingProgress(total) {
+    const messageEl = document.getElementById('shipping-message');
+    const fillEl = document.getElementById('progress-fill');
+    if (!messageEl || !fillEl) return;
+
+    if (total >= FREE_SHIPPING_THRESHOLD) {
+        messageEl.textContent = '🎉 تبریک! ارسال سفارش شما رایگان است!';
+        messageEl.style.color = '#4ade80';
+        fillEl.style.width = '100%';
+    } else {
+        const remaining = FREE_SHIPPING_THRESHOLD - total;
+        const percentage = (total / FREE_SHIPPING_THRESHOLD) * 100;
+        messageEl.textContent = `${remaining.toLocaleString('fa-IR')} تومان دیگه خرید کن تا ارسال رایگان بشه!`;
+        messageEl.style.color = 'var(--gold-color)';
+        fillEl.style.width = percentage + '%';
+    }
 }
 
 function removeFromCart(index) {
@@ -213,6 +268,39 @@ function checkoutToWhatsApp() {
     msg += `━━━━━━━━━━━━━━━━\n💰 جمع کل: ${total.toLocaleString('fa-IR')} تومان\n\nلطفاً راهنمایی کنید.`;
 
     window.location.href = 'https://wa.me/989385734170?text=' + encodeURIComponent(msg);
+}
+
+// ========== انیمیشن اسکرول ==========
+function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.about-section, .contact-section, .testimonials-section, .features-strip').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// ========== دکمه بازگشت به بالا ==========
+function initBackToTop() {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            btn.classList.add('show');
+        } else {
+            btn.classList.remove('show');
+        }
+    });
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ========== هدر هنگام اسکرول ==========
