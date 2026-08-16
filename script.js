@@ -313,3 +313,88 @@ window.addEventListener('click', (e) => {
     const modal = document.getElementById('product-modal');
     if (modal && e.target === modal) modal.style.display = 'none';
 });
+// ========== رزومه: ترمینال و مهارت‌ها ==========
+const terminalLines = [
+    { cmd: 'whoami', out: 'AYDIN — طراح و توسعه‌دهنده وب' },
+    { cmd: 'cat skills.txt', out: 'HTML • CSS • JavaScript • Responsive • UI/UX' },
+    { cmd: 'ls projects/', out: 'A&B Luxury Shop ✔ (همین سایت — دمو)' },
+    { cmd: 'echo $STATUS', out: 'آماده همکاری و یادگیری 🚀' }
+];
+
+let terminalStarted = false;
+
+function initResumeAnimations() {
+    const section = document.getElementById('about');
+    if (!section) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!terminalStarted) {
+                    terminalStarted = true;
+                    startTerminalTyping();
+                    animateSkillBars();
+                }
+                observer.unobserve(section);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    observer.observe(section);
+}
+
+function startTerminalTyping() {
+    const body = document.getElementById('terminal-body');
+    if (!body) return;
+    body.innerHTML = '';
+    let lineIndex = 0;
+
+    function typeLine() {
+        if (lineIndex >= terminalLines.length) {
+            const cursor = document.createElement('div');
+            cursor.className = 'terminal-line';
+            cursor.innerHTML = '<span class="terminal-prompt">$</span> <span class="terminal-cursor">▌</span>';
+            body.appendChild(cursor);
+            return;
+        }
+
+        const line = terminalLines[lineIndex];
+        const cmdLine = document.createElement('div');
+        cmdLine.className = 'terminal-line';
+        cmdLine.innerHTML = '<span class="terminal-prompt">$</span> <span class="terminal-cmd"></span>';
+        body.appendChild(cmdLine);
+
+        const cmdSpan = cmdLine.querySelector('.terminal-cmd');
+        let charIndex = 0;
+
+        function typeChar() {
+            if (charIndex < line.cmd.length) {
+                cmdSpan.textContent += line.cmd[charIndex];
+                charIndex++;
+                setTimeout(typeChar, 60);
+            } else {
+                setTimeout(() => {
+                    const outLine = document.createElement('div');
+                    outLine.className = 'terminal-line terminal-out';
+                    outLine.textContent = '> ' + line.out;
+                    body.appendChild(outLine);
+                    lineIndex++;
+                    setTimeout(typeLine, 300);
+                }, 200);
+            }
+        }
+        typeChar();
+    }
+
+    typeLine();
+}
+
+function animateSkillBars() {
+    document.querySelectorAll('.skill-fill').forEach(bar => {
+        setTimeout(() => {
+            bar.style.width = bar.dataset.width + '%';
+        }, 600);
+    });
+}
+
+initResumeAnimations();
